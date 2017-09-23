@@ -1,0 +1,117 @@
+selector:
+  slot: 0
+  item:
+    ==: item
+    id: 345
+    amount: 1
+    damage: 0
+    data: 0
+    name: '&1&lAccount selector'
+    lore:
+    - ''
+    - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+    - ''
+    - '  &c&lClick to open the selector'
+    - ''
+    - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+
+
+menuname: '&a&lAccount Selector'
+#Max rows is 6
+rows: 4
+
+nonpremiumslots: '11-12-13-14-15'
+nonpremiumemptyplace:
+  ==: item
+  id: 160
+  amount: 1
+  damage: 0
+  data: 0
+  name: '&6&lFree account slot'
+  lore:
+  - ''
+  - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+  - ''
+  - '  &c&lClick to create an account'
+  - ''
+  - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+
+#You can the following statments that will be replaced by a string
+# %player - > the name
+#
+#
+#
+nonpremiumaccountlore:
+- ''
+
+premiumslots: '20-21-22-23-24'
+#To have vip slots you need to add them to the list
+#The first segment is the name of the group
+#The second segment is the amount of slots they can have.
+ranksperms:
+- 'member-3'
+premiumemptyplace:
+  permission:
+    ==: item
+    id: 160
+    amount: 1
+    damage: 0
+    data: 5
+    name: '&6&lpremium account slot'
+    lore:
+    - ''
+    - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+    - ''
+    - '  &c&lClick to create an premium account'
+    - ''
+    - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+  nopermission:
+    ==: item
+    id: 160
+    amount: 1
+    damage: 0
+    data: 14
+    name: '&6&lNot sufficient permission'
+    lore:
+    - ''
+    - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+    - ''
+    - '  &c&lTo have this slot you need to buy'
+    - '  &c&la higher rank!'
+    - ''
+    - '&5&l0o&6&l=-=-=-=-=-=-=-=-=-=-=&5&lo0'
+
+fillupitem:
+  ==: item
+  id: 160
+  amount: 1
+  damage: 0
+  data: 15
+  name: ' '
+  lore: []
+
+freecharactersmenu:
+  menuname: '&5&lCreate character'
+  rows: 3
+  classes:
+  - 'archer-10'
+  fillupitem:
+    ==: item
+    id: 160
+    amount: 1
+    damage: 0
+    data: 15
+    name: ' '
+    lore: []
+
+premiumcharactersmenu:
+  menuname: '&5&lCreate character'
+  rows: 3
+  fillupitem:
+    ==: item
+    id: 160
+    amount: 1
+    damage: 0
+    data: 15
+    name: ' '
+    lore: []

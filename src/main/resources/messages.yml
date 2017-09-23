@@ -1,0 +1,88 @@
+prefix: '&5&l[&6CRC&5&l]  &a&l>> '
+ability:
+  activated: '&c&l%ability% has been activated'
+admin:
+  info:
+  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+  - ''
+  - '&c/admin setspawn'
+  - ''
+  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+  setspawn:
+    succes: '&a&lThe join spawn has been set successfully!'
+    commanderror: '&4&l/admin setspawn'
+  settutorialspawn:
+    succes: '&a&lThe tutorial spawn has been set successfully!'
+    commanderror: '&4&l/admin settutorialspawn'
+clan:
+  info:
+  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+  - ''
+  - '&c/clan create'
+  - '&c/clan remove'
+  - '&c/clan join'
+  - '&c/clan leave'
+  - '&c/clan settings'
+  - ''
+  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+  create:
+    success: '&a&lYour clan was created successfully.'
+    clantagexists: '&c&lThe chosen clan tag is already in use!'
+    clannameexists: '&c&lThe chosen clan name is already in use!'
+    hasclan: '&c&lYou are already in a clan.'
+    commanderror: '&4&l/clan create &c<clan name> <clan tag>'
+  remove:
+    success: '&a&lYour clan was successfully removed.'
+    notaleader: '&c&lYou are not a leader!'
+    noclan: '&c&lYou do not have a clan!'
+    commanderror: '&4&l/clan remove'
+guild:
+  info:
+  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+  - ''
+  - '&c/guild create'
+  - '&c/guild remove'
+  - '&c/guild promote'
+  - '&c/guild demote'
+  - '&c/guild plot'
+  - '&c/guild addcitizen'
+  - '&c/guild removecitizen'
+  - '&c/guild request'
+  - '&c/guild leave'
+  - '&c/guild info'
+  - '&c/guild creator'
+  - '&c/guild map'
+  - ''
+  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+  create:
+    success: '&a&lThe guild has been created.'
+    nameexists: '&c&lThe name does already exists.'
+    nomoney: '&c&lYou do not have enough money.'
+    nospace: '&c&lAnother guild is to close to this location.'
+    inotherguild: '&c&lYou are in another guild. You need to leave that guild to create your own guild.'
+    commanderror: '&4&l/Guild create &c<guild name>'
+  remove:
+    success: '&a&lThe guild has been removed.'
+    noguild: '&c&lYou do not own a guild.'
+    commanderror: '&4&l/Guild remove'
+  addcitizen:
+    success: '&a&lYour request has been sent.'
+    request: '&b&l%player% has invited you to join his guild.'
+    requestinstruction: '&b&lType /guild request <accept or deny> to answer.'
+    inotherguildcitizen: '&c&lThe player is a '
+    alreadycitizen: '&c&This player is already a citizen in another guild.'
+    noguild: '&c&lYou do not have a guild.'
+    invalidplayer: '&c&lThe player does not exists!'
+    commanderror: '&4&l/Guild addcitizen &c<player>'
+    ignorerequest: '&c&l%player% ignored your request'
+    requestovertime: '&c&lThe request is removed due to overtime.'
+    #The player has te time in seconds to accept the request
+    overtime: 30
+  request:
+    accept:
+      success: '&a&lYou are now a citizen'
+      successtoinviter: '&a&l%player% accepted your invite'
+    deny:
+      success: '&a&lYou denied the request'
+      denytoinviter: '&c&l%player% denied your request'
+    commanderror: '&4&l/Guild request <accept or deny>'

@@ -1,0 +1,97 @@
+windstorm:
+- ==: windstorm
+  tier: 1
+  minlevel: 5
+  hunger: 2
+  attackdamage: 1.0
+  rangedamage: 1.2
+  defence: 1.0
+  attackspeed: 1.5
+  spell: 'RIGHT-RIGHT-RIGHT'
+  duration: 5
+  fireeffect:
+    ==: fireeffect
+    duration: 0
+  effects: []
+- ==: windstorm
+  tier: 2
+  minlevel: 15
+  hunger: 2
+  attackdamage: 1.0
+  rangedamage: 1.2
+  defence: 1.0
+  attackspeed: 1.5
+  spell: 'RIGHT-RIGHT-RIGHT'
+  duration: 5
+  fireeffect:
+    ==: fireeffect
+    duration: 10
+  effects: []
+- ==: windstorm
+  tier: 3
+  minlevel: 35
+  hunger: 2
+  attackdamage: 1.0
+  rangedamage: 1.2
+  defence: 1.0
+  attackspeed: 1.5
+  spell: 'RIGHT-RIGHT-RIGHT'
+  duration: 5
+  fireeffect:
+    ==: fireeffect
+    duration: 10
+  effects:
+  - ==: PotionEffect
+    effect: 15
+    duration: 40
+    amplifier: 1
+    ambient: false
+    has-particles: true
+
+
+#rainoffire:
+#  - ==: rainoffire
+#    tier: 1
+#    minlevel: 15
+#    hunger: 4
+#    attackspeed: 1.0
+#    attackdamage: 1.2
+#    damage: 1
+#    use: 1
+#    arrows: 5
+#    effects: []
+#    enchants:
+#    - ==: enchant
+#      enchant: 50
+#      lvl: 1
+#  - ==: rainoffire
+#    tier: 2
+#    minlevel: 35
+#    hunger: 4
+#    attackspeed: 1
+#    attackdamage: 1.2
+#    damage: 1
+#    use: 1
+#    arrows: 5
+#    effects:
+
+#    enchants:
+#    - ==: enchant
+#      enchant: 50
+#      lvl: 1
+#  - ==: rainoffire
+#    tier: 3
+#    minlevel: 60
+#    hunger: 4
+#    attackspeed: 1
+#    attackdamage: 1.2
+#    damage: 1
+#    use: 1
+#    arrows: 5
+#    enchants:
+#    - ==: enchant
+#      enchant: 50
+#      lvl: 1
+#    - ==: enchant
+#      enchant: 49
+#      lvl: 2

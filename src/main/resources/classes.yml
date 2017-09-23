@@ -1,0 +1,81 @@
+archer:
+  ==: archer
+  damageperlevel: 1
+  rangeperlevel: 1
+  defenceperlevel: 2
+  attackspeedperlevel: 1
+  premium: false
+  profileitem:
+    ==: item
+    id: 261
+    amount: 1
+    damage: 0
+    data: 0
+    name: '&5&lArcher'
+    lore: []
+  mainitem:
+    ==: item
+    id: 261
+    amount: 1
+    damage: 0
+    data: 0
+    name: '&5&lBow'
+    lore:
+    - ''
+  items:
+  - ==: item
+    id: 262
+    amount: 64
+    damage: 0
+    data: 0
+    name: ''
+    lore: []
+  abilities:
+  - ==: windstorm
+    tier: 1
+    minlevel: 5
+    hunger: 2
+    attackdamage: 1.0
+    rangedamage: 1.2
+    defence: 1.0
+    attackspeed: 1.5
+    spell: 'RIGHT-RIGHT-RIGHT'
+    duration: 5
+    fireeffect:
+      ==: fireeffect
+      duration: 0
+    effects: []
+  - ==: windstorm
+    tier: 2
+    minlevel: 15
+    hunger: 2
+    attackdamage: 1.0
+    rangedamage: 1.2
+    defence: 1.0
+    attackspeed: 1.5
+    spell: 'RIGHT-RIGHT-RIGHT'
+    duration: 5
+    fireeffect:
+      ==: fireeffect
+      duration: 10
+    effects: []
+  - ==: windstorm
+    tier: 3
+    minlevel: 35
+    hunger: 2
+    attackdamage: 1.0
+    rangedamage: 1.2
+    defence: 1.0
+    attackspeed: 1.5
+    spell: 'RIGHT-RIGHT-RIGHT'
+    duration: 5
+    fireeffect:
+      ==: fireeffect
+      duration: 10
+    effects:
+    - ==: PotionEffect
+      effect: 15
+      duration: 40
+      amplifier: 1
+      ambient: false
+      has-particles: true

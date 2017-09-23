@@ -1,0 +1,74 @@
+#########################################
+###                                   ###
+###     HOW TO MAKE A CUSTOM ITEM     ###
+###                                   ###
+#########################################
+
+#  Make add a new id. Do not make 2 items with the same id!
+#  for example:
+#  items:
+#    '1':
+#      <Item 1>
+#    '2':
+#      <Item 2>
+#    '3':
+#      <Item 3>
+#
+#  Coppy paste this example:
+#
+#
+#   ==: customitem
+#   damage: 1  (This is the damage value)
+#   enchants:  (These are the enchants)
+#   - DAMAGE_ALL-100
+#   - DURABILITY-3
+#   - LOOT_BONUS_MOBS-100
+#   lore:  (This is the lore of the item)
+#   - §5---------------------
+#   - §5This is a custom item
+#   - §5---------------------
+#   name: §a§lCustomItem  (This is the display name of the item)
+#   id: 290  (This is the id of the item)
+#   itemflags:  (These are the flags of the item)
+#   - HIDE_ATTRIBUTES
+#   - HIDE_UNBREAKABLE
+#
+#
+#  damage:
+#  The damage value is very important You need to go to the wiki site an search the item.
+#  This item is the wooden hoe
+#  Here: http://minecraft.gamepedia.com/Hoe
+#  Can you find the max damage value. for the wooden hoe is it 60
+#  For the stone hoe it is 132.
+#  0 damage is no damage at all and 60 damage on the wooden hoe is a destroyed hoe.
+#
+#  enchants:
+#  To add a new enchant just add a new line like this:
+#  - <enchantment>-<level>
+#  <enchantment> --> You can find the enchantment over here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html
+#  <level> --> the level of your enchantment
+#  for example:
+#  - DURABILITY-3
+#
+#  lore:
+#  To add a lore just add a new line like this:
+#  - <text>
+#  You can find the color codes over here: http://minecraft.gamepedia.com/Formatting_codes
+#
+#  name:
+#  This is the display name of the item.
+#  You can find the color codes over here: http://minecraft.gamepedia.com/Formatting_codes
+#
+#  id:
+#  This is the id of the item itself.
+#  You can find all the id's of the items here: http://minecraft-ids.grahamedgecombe.com/
+#  Make shure that you are using a item with damage values
+#
+#  itemflags:
+#  To add a itemflag just add a new line like this.
+#  - <item flag>
+#  You can find the item flags over here: https://hub.spigotmc.org/javadocs/bukkit/
+#  There you can find also the description about the item flag.
+#
+
+items: []

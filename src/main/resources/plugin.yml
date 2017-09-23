@@ -1,0 +1,10 @@
+main: me.trolking1.calorthrealmcore.Main
+name: calorthrealmcore
+version: 1.0
+description: gamemode
+depend: [LuckPerms]
+
+commands:
+  admin:
+  clan:
+  guild:

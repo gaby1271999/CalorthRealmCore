@@ -1,0 +1,62 @@
+#In this statment you define the worlds that can use the guild claim option.
+guildworld:
+- world
+
+#The price that is needed to start a guild
+startguildmoney: 10000
+
+#The minimal space between the main chunk and the border of another guild.
+minimalchunkspace: 5
+
+#The minimal margin will be the ammount of chunks that is need between the minimalchunkspace and the mainchun.
+#The minimalchunkspace will be counted with the minimalmargine. This is only counted with the mainchunk.
+minimalmargine: 5
+
+scoreboard:
+  enable: true
+  #time between next refresh in seconds
+  refresh: 1
+  displayname: '&5&lScore & Map'
+  #You can max create 10 lines of 40 character each line
+  lines:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  map:
+    enable: true
+    characters:
+      playerloc: '&4&l○'
+      wilderness: '&8&l◘'
+      guild: '&b&l■'
+
+bossbar:
+  enable: true
+  #You can use %state%
+  #This will be replaced by the name of the kingdom or wilderness
+  inguildmessage: '&5You are now in the guild &4&l%state%!'
+  #%state% will be replaced by wilderness but if you want to use another word you simply write your own type of wilderness.
+  wildernessmessage: '&4&lYou are now in the %state%'
+  #You can find all the bar colors over here:
+  #https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
+  barcolor: GREEN
+  #You can find all the bar styles over here:
+  #https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarStyle.html
+  barstyle: SOLID
+  #You can add more than one bar flag.
+  #You can find all the bar flags over here:
+  #https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarFlag.html
+  #You can also add no bar flags by adding [] behind the statment
+  barflag: []
+
+worldsettings:
+  #The wilderness is the space outside the guild claim
+  wilderness:
+    blockbreak: false
+    blockplace: false
+    blockexplode: false
