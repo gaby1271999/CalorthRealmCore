@@ -1,10 +1,7 @@
 package me.trolking1.calorthrealmcore.guilds;
 
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.utils.Region;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Item;
 
 /**
  * Created by Gabriel on 4/1/2017.

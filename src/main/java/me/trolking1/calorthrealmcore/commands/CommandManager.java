@@ -1,12 +1,10 @@
 package me.trolking1.calorthrealmcore.commands;
 
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.admin.AdminMainCommand;
 import me.trolking1.calorthrealmcore.commands.admin.general.SetSpawn;
 import me.trolking1.calorthrealmcore.commands.admin.general.SetTutorialSpawn;
 import me.trolking1.calorthrealmcore.commands.clan.ClanMainCommand;
 import me.trolking1.calorthrealmcore.commands.guild.GuildMainCommand;
-import org.bukkit.plugin.Plugin;
 
 /**
  * Created by Gabriel on 4/3/2017.

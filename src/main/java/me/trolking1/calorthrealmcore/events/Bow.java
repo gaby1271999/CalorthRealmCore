@@ -1,9 +1,6 @@
 package me.trolking1.calorthrealmcore.events;
 
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
-import me.trolking1.calorthrealmcore.playerinfo.ability.archer.Windstorm;
-import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

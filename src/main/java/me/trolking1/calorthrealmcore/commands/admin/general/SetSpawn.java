@@ -2,7 +2,6 @@ package me.trolking1.calorthrealmcore.commands.admin.general;
 
 import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.CommandInterface;
-import me.trolking1.calorthrealmcore.menu.accounselector.AccountSelector;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

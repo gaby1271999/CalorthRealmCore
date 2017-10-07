@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.commands.guild;
 
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.CommandInterface;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

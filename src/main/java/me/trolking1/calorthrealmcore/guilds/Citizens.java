@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.guilds;
 
-import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

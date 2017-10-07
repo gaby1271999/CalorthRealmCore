@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.events;
 
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.guilds.Guild;
 import org.bukkit.Location;
 import org.bukkit.block.Block;

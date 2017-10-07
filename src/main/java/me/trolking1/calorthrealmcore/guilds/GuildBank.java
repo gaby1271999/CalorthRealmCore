@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.guilds;
 
-import me.trolking1.calorthrealmcore.Main;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.ChatColor;

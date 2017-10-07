@@ -1,23 +1,17 @@
 package me.trolking1.calorthrealmcore.menu.accounselector;
 
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.menu.Menu;
 import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
-import me.trolking1.calorthrealmcore.playerinfo.classes.PlayerClass;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AccountSelector implements Menu {

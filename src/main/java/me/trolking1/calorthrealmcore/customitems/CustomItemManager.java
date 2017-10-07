@@ -1,7 +1,5 @@
 package me.trolking1.calorthrealmcore.customitems;
 
-import me.trolking1.calorthrealmcore.Main;
-
 import java.util.HashMap;
 import java.util.Map;
 

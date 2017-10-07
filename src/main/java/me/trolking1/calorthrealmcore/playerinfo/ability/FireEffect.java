@@ -1,10 +1,8 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability;
 
-import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 

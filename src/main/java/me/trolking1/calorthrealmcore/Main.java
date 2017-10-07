@@ -8,11 +8,11 @@ import me.trolking1.calorthrealmcore.customitems.Bow;
 import me.trolking1.calorthrealmcore.customitems.Sword;
 import me.trolking1.calorthrealmcore.customitems.Wand;
 import me.trolking1.calorthrealmcore.custommobs.CustomMob;
+import me.trolking1.calorthrealmcore.custommobs.CustomMobManager;
+import me.trolking1.calorthrealmcore.custommobs.MobSpawn;
 import me.trolking1.calorthrealmcore.database.Database;
-import me.trolking1.calorthrealmcore.events.AccountSelectorEvent;
-import me.trolking1.calorthrealmcore.events.PlayerInteract;
-import me.trolking1.calorthrealmcore.events.PlayerJoin;
-import me.trolking1.calorthrealmcore.events.PlayerQuit;
+import me.trolking1.calorthrealmcore.events.*;
+import me.trolking1.calorthrealmcore.events.entitymove.EntityMoveManager;
 import me.trolking1.calorthrealmcore.guilds.GuildManager;
 import me.trolking1.calorthrealmcore.guilds.utils.GuildUtils;
 import me.trolking1.calorthrealmcore.menu.MenuManager;
@@ -56,6 +56,7 @@ public class Main extends JavaPlugin {
 		ConfigurationSerialization.registerClass(FireEffect.class);
 		ConfigurationSerialization.registerClass(Archer.class);
 		ConfigurationSerialization.registerClass(CustomMob.class);
+		ConfigurationSerialization.registerClass(MobSpawn.class);
 	}
 
 	public static Permission perms = null;
@@ -68,6 +69,7 @@ public class Main extends JavaPlugin {
 	public static MessageManager messageManager;
 	public static Database database;
 	public static GuildManager guildManager = new GuildManager();
+	public static CustomMobManager customMobManager;
 	public static GuildUtils guildUtils;
 	private CommandManager commandManager;
 	public static Main main;
@@ -87,12 +89,12 @@ public class Main extends JavaPlugin {
 		menuManager = new MenuManager();
 		guildManager.onStartUp();
 		playerInfoManager = new PlayerInfoManager();
-
+		customMobManager = new CustomMobManager();
 		clanManager = new ClanManager();
 		guildUtils = new GuildUtils();
 		commandManager = new CommandManager();
 
-		registerEvents(new PlayerJoin(), new AccountSelectorEvent(), new PlayerInteract(), new PlayerQuit());
+		registerEvents(new PlayerJoin(), new AccountSelectorEvent(), new PlayerInteract(), new PlayerQuit(), new EntityMove());
 
 		setupPermissions();
 
@@ -100,6 +102,8 @@ public class Main extends JavaPlugin {
 		if (manager.isProvidedFor(LuckPermsApi.class)) {
 			final LuckPermsApi api = manager.getRegistration(LuckPermsApi.class).getProvider();
 		}
+
+		new EntityMoveManager();
 	}
 
 	public void onDisable() {

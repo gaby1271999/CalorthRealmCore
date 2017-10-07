@@ -1,8 +1,5 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability;
 
-import me.trolking1.calorthrealmcore.Main;
-
-import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 

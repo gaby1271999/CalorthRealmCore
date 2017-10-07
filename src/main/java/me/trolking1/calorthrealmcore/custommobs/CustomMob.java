@@ -1,6 +1,7 @@
 package me.trolking1.calorthrealmcore.custommobs;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
@@ -15,15 +16,13 @@ public class CustomMob implements ConfigurationSerializable {
 
     private String displayName;
     private int minLvl, maxLvl, damagePerLevel;
-    private Location location;
     private EntityType entityType;
 
-    public CustomMob(String displayName, int minLvl, int maxLvl, int damagePerLevel, Location location, EntityType entityType) {
+    public CustomMob(String displayName, int minLvl, int maxLvl, int damagePerLevel, EntityType entityType) {
         this.displayName = displayName;
         this.minLvl = minLvl;
         this.maxLvl = maxLvl;
         this.damagePerLevel = damagePerLevel;
-        this.location = location;
         this.entityType = entityType;
     }
 
@@ -32,7 +31,6 @@ public class CustomMob implements ConfigurationSerializable {
         this.minLvl = (int) map.get("minlvl");
         this.maxLvl = (int) map.get("maxlvl");
         this.damagePerLevel = (int) map.get("damageperlvl");
-        this.location = (Location) map.get("location");
         this.entityType = (EntityType) map.get("entitytype");
     }
 
@@ -40,5 +38,13 @@ public class CustomMob implements ConfigurationSerializable {
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
         return map;
+    }
+
+    public Entity createMob(Location location) {
+        Entity entity = location.getWorld().spawnEntity(location, entityType);
+        entity.setCustomNameVisible(true);
+        entity.setCustomName(ChatColor.translateAlternateColorCodes('&', displayName));
+
+        return entity;
     }
 }

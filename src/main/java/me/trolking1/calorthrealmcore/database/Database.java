@@ -2,7 +2,6 @@ package me.trolking1.calorthrealmcore.database;
 
 import com.zaxxer.hikari.HikariDataSource;
 import me.trolking1.calorthrealmcore.ConfigManager;
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.playerinfo.Data;
 import me.trolking1.calorthrealmcore.playerinfo.classes.PlayerClass;
 import me.trolking1.calorthrealmcore.guilds.Citizens;
@@ -12,9 +11,7 @@ import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
 import me.trolking1.calorthrealmcore.playerinfo.Skill;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.MetadataValue;
 
 import java.sql.*;
 import java.util.*;

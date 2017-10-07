@@ -1,7 +1,6 @@
 package me.trolking1.calorthrealmcore.guilds.utils;
 
 import me.trolking1.calorthrealmcore.Config;
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.guilds.Guild;
 import me.trolking1.calorthrealmcore.guilds.Plot;
 import org.bukkit.Bukkit;
@@ -11,7 +10,6 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by Gabriel on 4/3/2017.

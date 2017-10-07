@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.menu;
 
-import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;

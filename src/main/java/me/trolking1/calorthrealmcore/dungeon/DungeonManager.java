@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.dungeon;
 
-import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.guilds;
 
-import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;

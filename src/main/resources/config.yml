@@ -36,3 +36,8 @@ pointsperblock:
 
 #on this location is the tutorial spawn.
 tutorialspawn: null
+
+custommob:
+  #If 3 blocks under the mob the block with the id 19 is not found the custom mob will despawn and a new will spawn
+  blockid: 19
+  maxdepth: 3

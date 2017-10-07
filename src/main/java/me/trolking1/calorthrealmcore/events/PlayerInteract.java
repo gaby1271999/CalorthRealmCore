@@ -1,6 +1,5 @@
 package me.trolking1.calorthrealmcore.events;
 
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.menu.accounselector.AccountSelector;
 import me.trolking1.calorthrealmcore.playerinfo.classes.PlayerClass;

@@ -1,14 +1,11 @@
 package me.trolking1.calorthrealmcore.playerinfo.classes;
 
-import me.trolking1.calorthrealmcore.ConfigManager;
-import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
 import me.trolking1.calorthrealmcore.playerinfo.ability.Ability;
 import me.trolking1.calorthrealmcore.playerinfo.ability.archer.Windstorm;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
