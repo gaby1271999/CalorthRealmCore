@@ -1,7 +1,9 @@
 package me.trolking1.calorthrealmcore.playerinfo;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.playerinfo.classes.*;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,10 +38,10 @@ public class PlayerInfoManager {
     }
 
     public void setPlayerAccounts(Player player) {
-        Map<Integer, LevelUp> playerLevels = Main.database.getPlayerLevel(player);
-        Map<Integer, PlayerClass> playerClasses = Main.database.getPlayerClass(player);
-        Map<Integer, Skill> playerSkills = Main.database.getPlayerSkill(player);
-        Map<Integer, Data> datas = Main.database.getPlayerData(player);
+        Map<Integer, LevelUp> playerLevels = Main.getDatabase().getPlayerLevel(player);
+        Map<Integer, PlayerClass> playerClasses = Main.getDatabase().getPlayerClass(player);
+        Map<Integer, Skill> playerSkills = Main.getDatabase().getPlayerSkill(player);
+        Map<Integer, Data> datas = Main.getDatabase().getPlayerData(player);
 
         if (playerLevels != null) {
             for (int id : playerLevels.keySet()) {
@@ -64,7 +66,18 @@ public class PlayerInfoManager {
     public void loginPlayer(Player player, int accountId) {
         PlayerData playerData = playerCharacters.get(accountId);
 
-        player.teleport(playerData.getData().getLocation());
+        if (playerData.getData().getLocation() != null) {
+            player.teleport(playerData.getData().getLocation());
+        } else {
+            Location tutorialSpawn = (Location) Main.getConfigManager().getConfig().getConfig().get("tutorialspawn");
+            if (tutorialSpawn != null) {
+                player.teleport(tutorialSpawn);
+            } else {
+                player.sendMessage(ChatColor.RED + "Tutorialspawn was not set.");
+                return;
+            }
+        }
+
         player.getInventory().clear();
 
         ItemStack[] items = playerData.getData().getItems();
@@ -74,11 +87,11 @@ public class PlayerInfoManager {
 
         playerData.setUsing(true);
 
-        Main.database.changeLatest(player);
-        Main.database.setLastUsed(accountId);
+        Main.getDatabase().changeLatest(player);
+        Main.getDatabase().setLastUsed(accountId);
 
-        player.setMetadata("id", new FixedMetadataValue(Main.main, accountId));
-        player.setMetadata("playerdata", new FixedMetadataValue(Main.main, playerData));
+        player.setMetadata("id", new FixedMetadataValue(Main.getMain(), accountId));
+        player.setMetadata("playerdata", new FixedMetadataValue(Main.getMain(), playerData));
     }
 
     public boolean createAccount(Player player, PlayerClass playerClass) {
@@ -92,8 +105,8 @@ public class PlayerInfoManager {
             counter++;
         }
 
-        PlayerData playerData = new PlayerData(player.getUniqueId(), new LevelUp(0, 0), playerClass, new Skill(0, 0, 0, 0, 0, 0), new Data((Location) Main.configManager.getConfig().getConfig().get("tutorialspawn"), items), false);
-        int playerDataId = Main.database.createAccount(player, playerData);
+        PlayerData playerData = new PlayerData(player.getUniqueId(), new LevelUp(0, 0), playerClass, new Skill(0, 0, 0, 0, 0, 0), new Data((Location) Main.getConfigManager().getConfig().getConfig().get("tutorialspawn"), items, playerClass.getBeginHealth()), false);
+        int playerDataId = Main.getDatabase().createAccount(player, playerData);
         if (playerDataId != 0) {
             playerCharacters.put(playerDataId, playerData);
             return true;
@@ -130,16 +143,25 @@ public class PlayerInfoManager {
 
     public PlayerClass getPlayerClass(int playerClassId) {
         if (playerClassId == 1) {
-            return (Archer) Main.configManager.getClasses().getConfig().get("archer");
+            return (Archer) Main.getConfigManager().getClasses().getConfig().get("archer");
         } else if (playerClassId == 2) {
-            return (Paladin) Main.configManager.getClasses().getConfig().get("paladin");
+            return (Paladin) Main.getConfigManager().getClasses().getConfig().get("paladin");
         } else if (playerClassId == 3) {
-            return (Rogue) Main.configManager.getClasses().getConfig().get("rogue");
+            return (Rogue) Main.getConfigManager().getClasses().getConfig().get("rogue");
         } else if (playerClassId == 4) {
-            return (Wizard) Main.configManager.getClasses().getConfig().get("wizard");
+            return (Wizard) Main.getConfigManager().getClasses().getConfig().get("wizard");
         }
 
         return null;
     }
 
+    public void createAccountSelector(Player player) {
+        if ((player.getInventory().getItem(Main.getConfigManager().getAccountSelector().getConfig().getInt("selector.slot")) == null ||
+                player.getInventory().getItem(Main.getConfigManager().getAccountSelector().getConfig().getInt("selector.slot")).getItemMeta().getDisplayName() == null ||
+                !player.getInventory().getItem(Main.getConfigManager().getAccountSelector().getConfig().getInt("selector.slot")).getItemMeta().getDisplayName().equals(((Item) Main.getConfigManager().getAccountSelector().getConfig().get("selector.item")).getItem().getItemMeta().getDisplayName()))) {
+
+            player.getInventory().setItem(Main.getConfigManager().getAccountSelector().getConfig().getInt("selector.slot"), ((Item) Main.getConfigManager().getAccountSelector().getConfig().get("selector.item")).getItem());
+
+        }
+    }
 }

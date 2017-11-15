@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
  */
 public class MessageManager {
 
-    private FileConfiguration messageconfig = Main.configManager.getMessages().getConfig();
+    private FileConfiguration messageconfig = Main.getConfigManager().getMessages().getConfig();
     private String prefix;
 
     public MessageManager() {
-        prefix = Main.configManager.getMessages().getConfig().getString("prefix");
+        prefix = Main.getConfigManager().getMessages().getConfig().getString("prefix");
     }
 
     public void sendMessageFromConfig(Player player, String path) {

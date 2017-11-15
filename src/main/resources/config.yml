@@ -41,3 +41,16 @@ custommob:
   #If 3 blocks under the mob the block with the id 19 is not found the custom mob will despawn and a new will spawn
   blockid: 19
   maxdepth: 3
+
+playerinfoboard:
+  title: '&5&l%player% &6stats'
+  #max rows of 16
+  rows:
+  - ''
+  - '&bYour lvl:'
+  - '        &6&l%lvl%'
+  - '&bYour active class'
+  - '        &6&l%class%'
+  - '&bYour hunger'
+  - '        &6&l%hunger%'
+

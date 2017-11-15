@@ -5,6 +5,10 @@ archer:
   defenceperlevel: 2
   attackspeedperlevel: 1
   premium: false
+  #in 50ms. 20 = 1 second
+  hungerfeedtimer: 60
+  beginhunger: 20
+  beginhealth: 30
   profileitem:
     ==: item
     id: 261

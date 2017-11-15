@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.guilds;
 
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -51,8 +52,8 @@ public class Guild implements ConfigurationSerializable {
         }
         this.chunks = chunks;
         this.plots = (List<Plot>) map.get("plots");
-        this.citizens = Main.database.getCitizens(name);
-        this.guildState = Main.database.getGuildState(name);
+        this.citizens = Main.getDatabase().getCitizens(name);
+        this.guildState = Main.getDatabase().getGuildState(name);
     }
 
     public Map<String, Object> serialize() {

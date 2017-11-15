@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Wizard extends PlayerClass {
 
-    public Wizard(int damagePerLevel, int rangePerLevel, int defencePerLevel, int attackSpeedPerLevel, boolean premium, Item profileItem, Item mainItem, List<Item> items, List<String> abilitys) {
-        super(damagePerLevel, rangePerLevel, defencePerLevel, attackSpeedPerLevel, premium, profileItem, mainItem, items, null);
+    public Wizard(int damagePerLevel, int rangePerLevel, int defencePerLevel, int attackSpeedPerLevel, boolean premium, Item profileItem, int beginHealth, Item mainItem, List<Item> items, List<String> abilitys) {
+        super(damagePerLevel, rangePerLevel, defencePerLevel, attackSpeedPerLevel, premium, profileItem, beginHealth, mainItem, items, null);
     }
 }

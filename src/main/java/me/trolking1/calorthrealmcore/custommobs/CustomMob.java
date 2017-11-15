@@ -7,6 +7,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Zombie;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,11 +16,14 @@ import java.util.Map;
 public class CustomMob implements ConfigurationSerializable {
 
     private String displayName;
-    private int minLvl, maxLvl, damagePerLevel;
+    private int id, minLvl, maxLvl, health;
+    private double damagePerLevel;
     private EntityType entityType;
 
-    public CustomMob(String displayName, int minLvl, int maxLvl, int damagePerLevel, EntityType entityType) {
+    public CustomMob(int id, String displayName, int health, int minLvl, int maxLvl, double damagePerLevel, EntityType entityType) {
+        this.id = id;
         this.displayName = displayName;
+        this.health = health;
         this.minLvl = minLvl;
         this.maxLvl = maxLvl;
         this.damagePerLevel = damagePerLevel;
@@ -27,16 +31,27 @@ public class CustomMob implements ConfigurationSerializable {
     }
 
     public CustomMob(Map<String, Object> map) {
+        this.id = (int) map.get("id");
         this.displayName = (String) map.get("displayname");
+        this.health = (int) map.get("health");
         this.minLvl = (int) map.get("minlvl");
         this.maxLvl = (int) map.get("maxlvl");
-        this.damagePerLevel = (int) map.get("damageperlvl");
-        this.entityType = (EntityType) map.get("entitytype");
+        this.damagePerLevel = (double) map.get("damageperlvl");
+        this.entityType = EntityType.valueOf((String) map.get("entitytype"));
     }
 
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
+
+        map.put("id", id);
+        map.put("displayname", displayName);
+        map.put("health", health);
+        map.put("minlvl", minLvl);
+        map.put("maxlvl", maxLvl);
+        map.put("damageperlvl", damagePerLevel);
+        map.put("entitytype", entityType);
+
         return map;
     }
 
@@ -45,6 +60,21 @@ public class CustomMob implements ConfigurationSerializable {
         entity.setCustomNameVisible(true);
         entity.setCustomName(ChatColor.translateAlternateColorCodes('&', displayName));
 
+        if (entity.getType() == EntityType.ZOMBIE) {
+            Zombie zombie = (Zombie) entity;
+
+            zombie.setBaby(false);
+        }
+
+
         return entity;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getHealth() {
+        return health;
     }
 }

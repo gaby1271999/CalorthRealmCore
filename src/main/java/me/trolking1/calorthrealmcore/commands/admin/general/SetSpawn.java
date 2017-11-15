@@ -16,12 +16,12 @@ public class SetSpawn implements CommandInterface {
         Player player = (Player) sender;
 
         if (args.length == 1) {
-            Main.configManager.getConfig().getConfig().set("spawn", player.getLocation());
-            Main.configManager.getConfig().saveConfig();
-            Main.messageManager.sendMessageFromConfig(player, "admin.setspawn.succes");
+            Main.getConfigManager().getConfig().getConfig().set("spawn", player.getLocation());
+            Main.getConfigManager().getConfig().saveConfig();
+            Main.getMessageManager().sendMessageFromConfig(player, "admin.setspawn.succes");
             return true;
         } else {
-            Main.messageManager.sendMessage(player, "admin.setspawn.commanderror");
+            Main.getMessageManager().sendMessage(player, "admin.setspawn.commanderror");
         }
 
         return false;

@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.commands.guild;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.CommandInterface;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -19,30 +20,30 @@ public class AddCitizen implements CommandInterface {
         if (args.length == 2) {
             Player citizen = Bukkit.getPlayer(args[1]);
             if (citizen == null) {
-                Main.messageManager.sendMessageFromConfig(player, "guild.addcitizen.invalidplayer");
+                Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.invalidplayer");
                 return false;
             }
 
-            int event = Main.guildUtils.addCitizenRequest(player, citizen);
+            int event = Main.getGuildUtils().addCitizenRequest(player, citizen);
 
             switch (event) {
                 case 1:
-                    Main.messageManager.sendMessageFromConfig(player, "guild.addcitizen.success");
-                    Main.messageManager.sendMessage(citizen, Main.messageManager.getMessageFromConfig("guild.addcitizen.request").replace("%player%", player.getName()));
-                    Main.messageManager.sendMessageFromConfig(citizen, "guild.addcitizen.requestinstruction");
+                    Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.success");
+                    Main.getMessageManager().sendMessage(citizen, Main.getMessageManager().getMessageFromConfig("guild.addcitizen.request").replace("%player%", player.getName()));
+                    Main.getMessageManager().sendMessageFromConfig(citizen, "guild.addcitizen.requestinstruction");
                     return true;
                 case 2:
-                    Main.messageManager.sendMessageFromConfig(player, "guild.addcitizen.inotherguildcitizen");
+                    Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.inotherguildcitizen");
                     return true;
                 case 3:
-                    Main.messageManager.sendMessageFromConfig(player, "guild.addcitizen.alreadycitizen");
+                    Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.alreadycitizen");
                     return true;
                 case 4:
-                    Main.messageManager.sendMessageFromConfig(player, "guild.addcitizen.noguild");
+                    Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.noguild");
                     return true;
             }
         } else {
-            Main.messageManager.sendMessageFromConfig(player, "guild.addcitizen.commanderror");
+            Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.commanderror");
         }
 
         return false;

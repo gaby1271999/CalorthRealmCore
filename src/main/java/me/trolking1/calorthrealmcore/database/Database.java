@@ -2,6 +2,7 @@ package me.trolking1.calorthrealmcore.database;
 
 import com.zaxxer.hikari.HikariDataSource;
 import me.trolking1.calorthrealmcore.ConfigManager;
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.playerinfo.Data;
 import me.trolking1.calorthrealmcore.playerinfo.classes.PlayerClass;
 import me.trolking1.calorthrealmcore.guilds.Citizens;
@@ -21,8 +22,8 @@ import java.util.*;
  */
 public class Database {
 
-    private HikariDataSource hikari = Main.hikari;
-    private ConfigManager configManager = Main.configManager;
+    private HikariDataSource hikari = Main.getHikari();
+    private ConfigManager configManager = Main.getConfigManager();
 
     public boolean createDBConnection() {
         hikari = new HikariDataSource();
@@ -52,7 +53,7 @@ public class Database {
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS level(id INT(4) AUTO_INCREMENT, lvl INT(4), xp INT(4), player_data_id INT(4) NOT NULL, PRIMARY KEY(id))");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS player_class(id INT(4) AUTO_INCREMENT, class INT(2) NOT NULL, player_data_id INT(4) NOT NULL, PRIMARY KEY(id))");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS player_skill(id INT(4) AUTO_INCREMENT, skillpoints INT(4), strength INT(4), dexterity INT(4), intelligence INT(4), defense INT(4), agility INT(4), player_data_id INT(4) NOT NULL, PRIMARY KEY(id))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS data(id INT(4) AUTO_INCREMENT, location TEXT(65000), inventory TEXT(65000), player_data_id INT(4) NOT NULL, PRIMARY KEY(id))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS data(id INT(4) AUTO_INCREMENT, location TEXT(65000), inventory TEXT(65000), health DOUBLE, player_data_id INT(4) NOT NULL, PRIMARY KEY(id))");
 
             connection.close();
             return true;
@@ -326,7 +327,7 @@ public class Database {
                 return 0;
             }
             statement.executeUpdate("INSERT INTO level(lvl, xp, player_data_id) VALUES(" + playerData.getLevelUp().getXp() + ", " + playerData.getLevelUp().getXp() + ", " + playerDataId + ")");
-            statement.executeUpdate("INSERT INTO player_class(class, player_data_id) VALUES(" + Main.playerInfoManager.getIntPlayerClass(playerData.getPlayerClass()) + ", " + playerDataId + ")");
+            statement.executeUpdate("INSERT INTO player_class(class, player_data_id) VALUES(" + Main.getPlayerInfoManager().getIntPlayerClass(playerData.getPlayerClass()) + ", " + playerDataId + ")");
             statement.executeUpdate("INSERT INTO player_skill(skillpoints, strength, dexterity, intelligence, defense, agility, player_data_id) VALUES(" + playerData.getSkill().getSkillpoints() + ", " + playerData.getSkill().getStrength() + ", " + playerData.getSkill().getDexterity() + ", " + playerData.getSkill().getIntelligence() + ", " + playerData.getSkill().getDefense() + ", " + playerData.getSkill().getAgility() + ", " + playerDataId + ")");
             statement.executeUpdate("INSERT INTO data(location, inventory, player_data_id) VALUES('" + Main.encodeObject(playerData.getData().getLocation()) + "', '" + Main.encodeInventory(playerData.getData().getItems()) + "', " + playerDataId + ")");
             return playerDataId;
@@ -387,7 +388,7 @@ public class Database {
             while (playerAccounts.next()) {
                 ResultSet resultSet = statement2.executeQuery("SELECT * FROM player_class WHERE player_data_id=" + playerAccounts.getInt("id"));
                 if (resultSet.next()) {
-                    PlayerClass playerClass = Main.playerInfoManager.getPlayerClass(resultSet.getInt("class"));
+                    PlayerClass playerClass = Main.getPlayerInfoManager().getPlayerClass(resultSet.getInt("class"));
                     accountClasses.put(playerAccounts.getInt("id"), playerClass);
                 }
             }
@@ -432,8 +433,9 @@ public class Database {
                 if (resultSet.next()) {
                     Location location = (Location) Main.decodeObject(resultSet.getString("location"));
                     ItemStack[] items = Main.decodeInventory(resultSet.getString("inventory"));
+                    double health = resultSet.getDouble("health");
 
-                    datas.put(playerAccounts.getInt("id"), new Data(location, items));
+                    datas.put(playerAccounts.getInt("id"), new Data(location, items, health));
                 }
             }
             return datas;
@@ -482,8 +484,8 @@ public class Database {
             PlayerData playerData = (PlayerData) player.getMetadata("playerdata").get(0).value();
 
             statement.executeUpdate("UPDATE level SET lvl=" + playerData.getLevelUp().getLevel() + ", xp=" + playerData.getLevelUp().getXp() + " WHERE player_data_id='" + playerId + "'");
-            statement.executeUpdate("UPDATE player_skill SET skillpoints=" + playerData.getSkill().getSkillpoints() + ", strength=" + playerData.getSkill().getStrength() + ", dexterity=" + playerData.getSkill().getDexterity() + ", intelligence="+ playerData.getSkill().getIntelligence() + ", defense=" + playerData.getSkill().getDefense() + ", agility=" + playerData.getSkill().getAgility() + " WHERE player_data_id='" + playerId + "'");
-            statement.executeUpdate("UPDATE data SET location='" + Main.encodeObject(player.getLocation()) + "', inventory='" + Main.encodeInventory(player.getInventory().getContents()) + "' WHERE player_data_id='" + playerId + "'");
+            statement.executeUpdate("UPDATE player_skill SET skillpoints=" + playerData.getSkill().getSkillpoints() + ", strength=" + playerData.getSkill().getStrength() + ", dexterity=" + playerData.getSkill().getDexterity() + ", intelligence=" + playerData.getSkill().getIntelligence() + ", defense=" + playerData.getSkill().getDefense() + ", agility=" + playerData.getSkill().getAgility() + " WHERE player_data_id='" + playerId + "'");
+            statement.executeUpdate("UPDATE data SET location='" + Main.encodeObject(player.getLocation()) + "', inventory='" + Main.encodeInventory(player.getInventory().getContents()) + "', health=" + playerData.getData().getHealth() + " WHERE player_data_id='" + playerId + "'");
         } catch (Exception exception){
             exception.printStackTrace();
         }

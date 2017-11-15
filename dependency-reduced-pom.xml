@@ -107,6 +107,12 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>net.spigot</groupId>
+      <artifactId>spigot</artifactId>
+      <version>1.12</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>com.sk89q.worldedit</groupId>
       <artifactId>worldedit-bukkit</artifactId>
       <version>LATEST</version>
@@ -139,7 +145,7 @@
     <dependency>
       <groupId>com.citizens</groupId>
       <artifactId>citizens</artifactId>
-      <version>LATEST</version>
+      <version>1.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -151,7 +157,7 @@
     <dependency>
       <groupId>me.lucko.luckperms</groupId>
       <artifactId>luckperms-api</artifactId>
-      <version>3.2</version>
+      <version>3.3</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

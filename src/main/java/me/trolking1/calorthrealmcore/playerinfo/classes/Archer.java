@@ -1,10 +1,12 @@
 package me.trolking1.calorthrealmcore.playerinfo.classes;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
 import me.trolking1.calorthrealmcore.playerinfo.ability.Ability;
 import me.trolking1.calorthrealmcore.playerinfo.ability.FireEffect;
 import me.trolking1.calorthrealmcore.playerinfo.ability.archer.Windstorm;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
@@ -21,16 +23,30 @@ import java.util.Map;
 public class Archer extends PlayerClass implements ConfigurationSerializable {
 
     private Projectile projectile;
-    private int damage, range, defence, attackSpeed;
-    private byte hunger;
+    private int damage, range, defence, attackSpeed, beginHealth, hungerFeedTimer;
+    private byte hunger, beginHunger;
     private Ability currentAbility = null;
 
-    public Archer(int damagePerLevel, int rangePerLevel, int defencePerLevel, int attackSpeedPerLevel, boolean premium, Item profileItem, Item mainItem, List<Item> items, List<String> abilitys) {
-        super(damagePerLevel, rangePerLevel, defencePerLevel, attackSpeedPerLevel, premium, profileItem, mainItem, items, null);
+    public Archer(int damagePerLevel, int rangePerLevel, int defencePerLevel, int attackSpeedPerLevel, boolean premium, int hungerFeedTimer, byte beginHunger, Item profileItem, int beginHealth, Item mainItem, List<Item> items, List<String> abilitys) {
+        super(damagePerLevel, rangePerLevel, defencePerLevel, attackSpeedPerLevel, premium, profileItem, beginHealth, mainItem, items, null);
+
+        this.hungerFeedTimer = hungerFeedTimer;
+        this.beginHunger = beginHunger;
+        this.hunger = beginHunger;
+        this.beginHealth = beginHealth;
+
+        checkHunger();
     }
 
     public Archer(Map<String, Object> map) {
         super(map);
+
+        this.hungerFeedTimer = (int) map.get("hungerfeedtimer");
+        this.beginHunger = Main.intToByte((int) map.get("beginhunger"));
+        this.hunger = beginHunger;
+        this.beginHealth = (int) map.get("beginhealth");
+
+        checkHunger();
     }
 
     @Override
@@ -54,7 +70,7 @@ public class Archer extends PlayerClass implements ConfigurationSerializable {
         this.attackSpeed = (int) (this.attackSpeed*attackSpeed);
     }
 
-    public void activateAbilities(PlayerData playerData, String name) {
+    public void activateAbilities(Player player, PlayerData playerData, String name) {
         Ability ability = null;
         int previousLevel = 0;
         for (Object object : super.getAbilities()) {
@@ -70,7 +86,7 @@ public class Archer extends PlayerClass implements ConfigurationSerializable {
 
         if (name.equals("Windstorm")) {
             Windstorm windstorm = (Windstorm) ability;
-            windstorm.startAbility(playerData);
+            windstorm.startAbility(player, playerData);
             currentAbility = windstorm;
         }
     }
@@ -79,11 +95,27 @@ public class Archer extends PlayerClass implements ConfigurationSerializable {
         this.hunger -= hunger;
     }
 
+    public byte getBeginHunger() {
+        return beginHunger;
+    }
+
+    public byte getHunger() {
+        return hunger;
+    }
+
     public Projectile getProjectile() {
         return projectile;
     }
 
     public Ability getCurrentAbility() {
         return currentAbility;
+    }
+
+    private void checkHunger() {
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(Main.getMain(), () -> {
+            if (hunger < beginHunger) {
+                hunger+=1;
+            }
+        }, 0, hungerFeedTimer);
     }
 }

@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.menu.accounselector;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.menu.Menu;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
@@ -14,7 +15,7 @@ import org.bukkit.inventory.Inventory;
  */
 public class CreateFreeCharacters implements Menu {
 
-    private FileConfiguration accountSelectorConfig = Main.configManager.getAccountSelector().getConfig();
+    private FileConfiguration accountSelectorConfig = Main.getConfigManager().getAccountSelector().getConfig();
     private Inventory inv;
 
     public CreateFreeCharacters() {
@@ -23,7 +24,7 @@ public class CreateFreeCharacters implements Menu {
         for (String args : accountSelectorConfig.getStringList("freecharactersmenu.classes")) {
             String[] line = args.split("-");
             if (line[0].equalsIgnoreCase("archer")) {
-                inv.setItem(Integer.valueOf(line[1]), ((Archer) Main.configManager.getClasses().getConfig().get("archer")).getProfileItem().getItem());
+                inv.setItem(Integer.valueOf(line[1]), ((Archer) Main.getConfigManager().getClasses().getConfig().get("archer")).getProfileItem().getItem());
             }
         }
 

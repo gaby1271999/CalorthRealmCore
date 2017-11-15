@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.menu.accounselector;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.menu.Menu;
 import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
@@ -17,12 +18,12 @@ import java.util.Map;
 public class AccountSelector implements Menu {
 
 
-    private FileConfiguration accountSelectorConfig = Main.configManager.getAccountSelector().getConfig();
+    private FileConfiguration accountSelectorConfig = Main.getConfigManager().getAccountSelector().getConfig();
     private Inventory inv;
 
     public AccountSelector(Player player) throws IllegalAccessException, InstantiationException {
         Map<Integer, Integer> slotId = new HashMap<>();
-        Map<Integer, PlayerData> playerdatas = Main.playerInfoManager.getPlayerAccounts(player);
+        Map<Integer, PlayerData> playerdatas = Main.getPlayerInfoManager().getPlayerAccounts(player);
 
         inv = Bukkit.createInventory(null, accountSelectorConfig.getInt("rows")*9, ChatColor.translateAlternateColorCodes('&', accountSelectorConfig.getString("menuname")));
 
@@ -58,7 +59,7 @@ public class AccountSelector implements Menu {
 
         if (indexPremium != premiumSlots.length) {
             int maxPremiumSlots = 0;
-            String[] groups = Main.perms.getPlayerGroups(player);
+            String[] groups = Main.getPerms().getPlayerGroups(player);
             for (int i = 0; i < groups.length; i++) {
                 for (String arg : accountSelectorConfig.getStringList("ranksperms")) {
                     String[] line = arg.split("-");
@@ -92,7 +93,7 @@ public class AccountSelector implements Menu {
             }
         }
 
-        player.setMetadata("slotid", new FixedMetadataValue(Main.main, slotId));
+        player.setMetadata("slotid", new FixedMetadataValue(Main.getMain(), slotId));
     }
 
     public void openMenu(Player player) {

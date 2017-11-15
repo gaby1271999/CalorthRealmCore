@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.guilds;
 
+import me.trolking1.calorthrealmcore.Main;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.ChatColor;
@@ -29,9 +30,9 @@ public class GuildBank {
     }
 
     private void setupNPC(Location location) {
-        npc.setName(ChatColor.translateAlternateColorCodes('&', Main.configManager.getGuildBank().getConfig().getString("npc.displayname")));
-        npc.data().set(NPC.PLAYER_SKIN_TEXTURE_PROPERTIES_METADATA, Main.configManager.getGuildBank().getConfig().getString("npc.skin.value"));
-        npc.data().set(NPC.PLAYER_SKIN_TEXTURE_PROPERTIES_SIGN_METADATA, Main.configManager.getGuildBank().getConfig().getString("npc.skin.signature"));
+        npc.setName(ChatColor.translateAlternateColorCodes('&', Main.getConfigManager().getGuildBank().getConfig().getString("npc.displayname")));
+        npc.data().set(NPC.PLAYER_SKIN_TEXTURE_PROPERTIES_METADATA, Main.getConfigManager().getGuildBank().getConfig().getString("npc.skin.value"));
+        npc.data().set(NPC.PLAYER_SKIN_TEXTURE_PROPERTIES_SIGN_METADATA, Main.getConfigManager().getGuildBank().getConfig().getString("npc.skin.signature"));
 
         npc.spawn(location);
     }

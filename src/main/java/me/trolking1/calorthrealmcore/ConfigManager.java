@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ConfigManager {
 
-    private static Config config, messages, guildBank, customitems, guild, classes, abilities, accountSelector, classSelector, dungeons, mobSpawns;
+    private static Config config, messages, guildBank, customitems, guild, classes, abilities, accountSelector, classSelector, dungeons, mobSpawns, customMobs;
     private List<Config> guilds = new ArrayList<>();
 
     public ConfigManager(Plugin plugin) {
@@ -25,7 +25,8 @@ public class ConfigManager {
         accountSelector = new Config(plugin, "accountselector", true);
         classSelector = new Config(plugin, "classselector", true);
         dungeons = new Config(plugin, "dungeons", false);
-        mobSpawns = new Config(plugin, "mobspawns", true);
+        mobSpawns = new Config(plugin, "mobspawns", false);
+        customMobs = new Config(plugin, "custommobs", true);
 
         manageGuilds(plugin);
     }
@@ -70,6 +71,10 @@ public class ConfigManager {
 
     public Config getMobSpawns() {
         return mobSpawns;
+    }
+
+    public static Config getCustomMobs() {
+        return customMobs;
     }
 
     public Config getGuildsFile(String name) {

@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability;
 
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
@@ -19,7 +20,7 @@ public class FireEffect implements ConfigurationSerializable {
     }
 
     public FireEffect(Map<String, Object> map) {
-        this.duration = Main.intToByte((int) map.get("duration"));
+        this.duration = Main.getMain().intToByte((int) map.get("duration"));
     }
 
     @Override

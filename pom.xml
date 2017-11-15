@@ -46,6 +46,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>net.spigot</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.12</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- HikariCP -->
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -75,11 +82,11 @@
             <type>jar</type>
         </dependency>
 
+
         <dependency>
             <groupId>com.citizens</groupId>
             <artifactId>citizens</artifactId>
-            <version>LATEST</version>
-            <type>jar</type>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -93,7 +100,7 @@
         <dependency>
             <groupId>me.lucko.luckperms</groupId>
             <artifactId>luckperms-api</artifactId>
-            <version>3.2</version>
+            <version>3.3</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

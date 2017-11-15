@@ -1,5 +1,7 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability;
 
+import me.trolking1.calorthrealmcore.Main;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +26,7 @@ public class Ability {
     }
 
     public Ability(Map<String, Object> map) {
-        this.tier = Main.intToByte((int) map.get("tier"));
+        this.tier = Main.getMain().intToByte((int) map.get("tier"));
         this.minLevel = (int) map.get("minlevel");
         this.attackDamage = (double) map.get("attackdamage");
         this.rangeDamage = (double) map.get("rangedamage");

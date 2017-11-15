@@ -11,10 +11,12 @@ public class Data {
 
     private Location location;
     private ItemStack[] items;
+    private double health;
 
-    public Data(Location location, ItemStack[] items) {
+    public Data(Location location, ItemStack[] items, double health) {
         this.location = location;
         this.items = items;
+        this.health = health;
     }
 
     public Location getLocation() {
@@ -31,5 +33,13 @@ public class Data {
 
     public void setItems(ItemStack[] items) {
         this.items = items;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
     }
 }

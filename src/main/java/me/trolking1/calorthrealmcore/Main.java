@@ -21,15 +21,17 @@ import me.trolking1.calorthrealmcore.playerinfo.ability.FireEffect;
 import me.trolking1.calorthrealmcore.playerinfo.ability.archer.RainOfFire;
 import me.trolking1.calorthrealmcore.playerinfo.ability.archer.Windstorm;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
+import me.trolking1.calorthrealmcore.utils.NMSUtil;
+import me.trolking1.calorthrealmcore.utils.ScoreBoardUtil;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicesManager;
@@ -40,7 +42,6 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.Base64;
 
 import java.util.List;
 
@@ -59,20 +60,22 @@ public class Main extends JavaPlugin {
 		ConfigurationSerialization.registerClass(MobSpawn.class);
 	}
 
-	public static Permission perms = null;
-	public static Economy econ = null;
-	public static ConfigManager configManager;
-	public static HikariDataSource hikari;
-	public static MenuManager menuManager;
-	public static PlayerInfoManager playerInfoManager;
-	public static ClanManager clanManager;
-	public static MessageManager messageManager;
-	public static Database database;
-	public static GuildManager guildManager = new GuildManager();
-	public static CustomMobManager customMobManager;
-	public static GuildUtils guildUtils;
+	private static Permission perms = null;
+	private static Economy econ = null;
+	private static ConfigManager configManager;
+	private static HikariDataSource hikari;
+	private static MenuManager menuManager;
+	private static PlayerInfoManager playerInfoManager;
+	private static ClanManager clanManager;
+	private static MessageManager messageManager;
+	private static Database database;
+	private static GuildManager guildManager = new GuildManager();
+	private static CustomMobManager customMobManager;
+	private static GuildUtils guildUtils;
+	private static NMSUtil nmsUtil;
+	private static ScoreBoardUtil scoreBoardUtil;
 	private CommandManager commandManager;
-	public static Main main;
+	private static Main main;
 
 	public void onEnable() {
 		main = this;
@@ -90,8 +93,11 @@ public class Main extends JavaPlugin {
 		guildManager.onStartUp();
 		playerInfoManager = new PlayerInfoManager();
 		customMobManager = new CustomMobManager();
+		customMobManager.setupMobSpawns();
 		clanManager = new ClanManager();
 		guildUtils = new GuildUtils();
+		nmsUtil = new NMSUtil();
+		scoreBoardUtil = new ScoreBoardUtil();
 		commandManager = new CommandManager();
 
 		registerEvents(new PlayerJoin(), new AccountSelectorEvent(), new PlayerInteract(), new PlayerQuit(), new EntityMove());
@@ -104,10 +110,30 @@ public class Main extends JavaPlugin {
 		}
 
 		new EntityMoveManager();
+
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			Main.getPlayerInfoManager().setPlayerAccounts(player);
+
+			if (Main.getConfigManager().getConfig().getConfig().getBoolean("tptospawn") && Main.getConfigManager().getConfig().getConfig().get("spawn") != null) {
+				player.teleport((Location) Main.getConfigManager().getConfig().getConfig().get("spawn"));
+			}
+
+			getPlayerInfoManager().createAccountSelector(player);
+		}
 	}
 
 	public void onDisable() {
+		customMobManager.shutDown();
 
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (!player.getMetadata("id").isEmpty()) {
+				Main.getDatabase().saveAccount(player);
+				player.getInventory().clear();
+
+				player.removeMetadata("id", Main.getMain());
+				player.removeMetadata("playerdata", Main.getMain());
+			}
+		}
 	}
 
 	public static byte intToByte(int value) {
@@ -199,5 +225,69 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static Permission getPerms() {
+		return perms;
+	}
+
+	public static Economy getEcon() {
+		return econ;
+	}
+
+	public static ConfigManager getConfigManager() {
+		return configManager;
+	}
+
+	public static HikariDataSource getHikari() {
+		return hikari;
+	}
+
+	public static MenuManager getMenuManager() {
+		return menuManager;
+	}
+
+	public static PlayerInfoManager getPlayerInfoManager() {
+		return playerInfoManager;
+	}
+
+	public static ClanManager getClanManager() {
+		return clanManager;
+	}
+
+	public static MessageManager getMessageManager() {
+		return messageManager;
+	}
+
+	public static Database getDatabase() {
+		return database;
+	}
+
+	public static GuildManager getGuildManager() {
+		return guildManager;
+	}
+
+	public static CustomMobManager getCustomMobManager() {
+		return customMobManager;
+	}
+
+	public static GuildUtils getGuildUtils() {
+		return guildUtils;
+	}
+
+	public static NMSUtil getNmsUtil() {
+		return nmsUtil;
+	}
+
+	public static ScoreBoardUtil getScoreBoardUtil() {
+		return scoreBoardUtil;
+	}
+
+	public CommandManager getCommandManager() {
+		return commandManager;
+	}
+
+	public static Main getMain() {
+		return main;
 	}
 }

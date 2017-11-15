@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.commands.admin;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.CommandInterface;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,7 @@ public class AdminMainCommand implements CommandInterface {
 
         if (args.length == 0) {
             if (player.hasPermission("")) {
-                Main.messageManager.sendArrayMessageFromConfig(player, "admin.info");
+                Main.getMessageManager().sendArrayMessageFromConfig(player, "admin.info");
             }
         }
 

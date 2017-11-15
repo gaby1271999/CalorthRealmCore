@@ -1,5 +1,7 @@
 package me.trolking1.calorthrealmcore.customitems;
 
+import me.trolking1.calorthrealmcore.Main;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +13,9 @@ public class CustomItemManager {
     private Map<Integer, CustomItem> customItems = new HashMap<>();
 
     public void onStartUp() {
-        for (String customItemId : Main.configManager.getCustomitems().getConfig().getConfigurationSection("items").getKeys(false)) {
+        for (String customItemId : Main.getConfigManager().getCustomitems().getConfig().getConfigurationSection("items").getKeys(false)) {
             int id = Integer.valueOf(customItemId);
-            CustomItem customItem = (CustomItem) Main.configManager.getCustomitems().getConfig().get("items." + customItemId);
+            CustomItem customItem = (CustomItem) Main.getConfigManager().getCustomitems().getConfig().get("items." + customItemId);
             customItems.put(id, customItem);
         }
     }

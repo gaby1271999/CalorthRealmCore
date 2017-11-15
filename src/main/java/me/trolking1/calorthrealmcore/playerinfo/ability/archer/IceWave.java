@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability.archer;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.playerinfo.ability.Ability;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
@@ -29,9 +30,9 @@ public class IceWave extends Ability implements ConfigurationSerializable {
     public IceWave(Map<String, Object> map) {
         super(map);
 
-        this.hunger = Main.intToByte((int) map.get("hunger"));
-        this.use = Main.intToByte((int) map.get("use"));
-        this.arrows = Main.intToByte((int) map.get("arrows"));
+        this.hunger = Main.getMain().intToByte((int) map.get("hunger"));
+        this.use = Main.getMain().intToByte((int) map.get("use"));
+        this.arrows = Main.getMain().intToByte((int) map.get("arrows"));
         this.effects = (List<PotionEffect>) map.get("effects");
     }
 

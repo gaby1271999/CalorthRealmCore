@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.events.entitymove;
 
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -7,7 +8,7 @@ import org.bukkit.entity.EntityType;
 
 public class EntityMoveManager {
 
-    Main main = Main.main;
+    Main main = Main.getMain();
 
     public EntityMoveManager() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(main, new Runnable() {

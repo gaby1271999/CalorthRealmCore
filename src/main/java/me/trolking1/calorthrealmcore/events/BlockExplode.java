@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.events;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.guilds.Guild;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -13,7 +14,7 @@ import org.bukkit.event.block.BlockExplodeEvent;
  */
 public class BlockExplode implements Listener {
 
-    private FileConfiguration guildConfig = Main.configManager.getGuild().getConfig();
+    private FileConfiguration guildConfig = Main.getConfigManager().getGuild().getConfig();
 
     @EventHandler
     public void onBlockExplode(BlockExplodeEvent event) {
@@ -21,7 +22,7 @@ public class BlockExplode implements Listener {
             for (Block block : event.blockList()) {
                 if (block.getWorld().getName().equals(world)) {
                     Location location = block.getLocation();
-                    Guild guild = Main.guildManager.getGuild(location);
+                    Guild guild = Main.getGuildManager().getGuild(location);
                     if (guild == null) {
                         if (!guildConfig.getBoolean("worldsettings.wilderness.blockexplode")) {
                             event.setCancelled(true);

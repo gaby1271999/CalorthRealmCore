@@ -17,20 +17,20 @@ public class MobSpawn implements ConfigurationSerializable {
 
     private int id;
     private List<Location> locations;
-    private CustomMob customMob;
+    private int customMobId;
     private byte amount;
 
-    public MobSpawn(int id, List<Location> locations, CustomMob customMob, byte amount) {
+    public MobSpawn(int id, List<Location> locations, int customMobId, byte amount) {
         this.id = id;
         this.locations = locations;
-        this.customMob = customMob;
+        this.customMobId = customMobId;
         this.amount = amount;
     }
 
     public MobSpawn(Map<String, Object> map) {
         this.id = (int) map.get("id");
         this.locations = (List<Location>) map.get("locations");
-        this.customMob = (CustomMob) map.get("custommob");
+        this.customMobId = (int) map.get("custommobid");
         this.amount = Main.intToByte((int) map.get("amount"));
     }
 
@@ -40,17 +40,17 @@ public class MobSpawn implements ConfigurationSerializable {
 
         map.put("id", id);
         map.put("locations", locations);
-        map.put("custommob", customMob);
+        map.put("custommobid", customMobId);
         map.put("amount", amount);
 
         return map;
     }
 
     public Entity spawnMob() {
-        if (!Main.customMobManager.maxMobs(id)) {
-            int random = new Random().nextInt(locations.size() - 1);
+        if (!Main.getCustomMobManager().maxMobs(id)) {
+            int random = new Random().nextInt(locations.size());
 
-            return customMob.createMob(locations.get(random));
+            return Main.getCustomMobManager().getCustomMobe(customMobId).createMob(locations.get(random));
         }
 
         return null;
@@ -72,12 +72,12 @@ public class MobSpawn implements ConfigurationSerializable {
         this.locations = locations;
     }
 
-    public CustomMob getCustomMob() {
-        return customMob;
+    public int getCustomMobId() {
+        return customMobId;
     }
 
-    public void setCustomMob(CustomMob customMob) {
-        this.customMob = customMob;
+    public void setCustomMobId(int customMobId) {
+        this.customMobId = customMobId;
     }
 
     public byte getAmount() {

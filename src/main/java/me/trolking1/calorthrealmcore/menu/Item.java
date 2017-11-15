@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.menu;
 
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -28,8 +29,8 @@ public class Item implements ConfigurationSerializable {
     public Item(Map<String, Object> map) {
         this.id = (int) map.get("id");
         this.amount = (int) map.get("amount");
-        this.damage = Main.intToShort((int)map.get("damage"));
-        this.data = Main.intToByte((int) map.get("data"));
+        this.damage = Main.getMain().intToShort((int)map.get("damage"));
+        this.data = Main.getMain().intToByte((int) map.get("data"));
         this.name = (String) map.get("name");
         this.lore = (List<String>) map.get("lore");
 

@@ -1,0 +1,9 @@
+mobs:
+  - ==: custommob
+    id: 1
+    displayname: '&b&lExample mob'
+    health: 10
+    minlvl: 1
+    maxlvl: 10
+    damageperlvl: 0.5
+    entitytype: 'ZOMBIE'

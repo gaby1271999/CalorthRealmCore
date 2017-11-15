@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.commands.guild;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.CommandInterface;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,7 @@ public class GuildMainCommand implements CommandInterface {
 
         Player player = (Player) sender;
 
-        Main.messageManager.sendArrayMessageFromConfig(player, "guild.info");
+        Main.getMessageManager().sendArrayMessageFromConfig(player, "guild.info");
 
         return false;
     }

@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.events;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
 import org.bukkit.ChatColor;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class AccountSelectorEvent implements Listener {
 
-    private FileConfiguration accountSelectorConfig = Main.configManager.getAccountSelector().getConfig();
+    private FileConfiguration accountSelectorConfig = Main.getConfigManager().getAccountSelector().getConfig();
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
@@ -38,14 +39,14 @@ public class AccountSelectorEvent implements Listener {
         if (event.getInventory().getName().equals(ChatColor.translateAlternateColorCodes('&', accountSelectorConfig.getString("menuname")))) {
             if (event.getCurrentItem().getItemMeta().getDisplayName() != null) {
                 if (event.getCurrentItem().getItemMeta().getDisplayName().equals(((Item) accountSelectorConfig.get("nonpremiumemptyplace")).getItem().getItemMeta().getDisplayName())) {
-                    Main.menuManager.getCreateFreeCharacters().openMenu(player);
+                    Main.getMenuManager().getCreateFreeCharacters().openMenu(player);
                 } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(((Item) accountSelectorConfig.get("premiumemptyplace.permission")).getItem().getItemMeta().getDisplayName())) {
-                    Main.menuManager.getCreatePremiumCharacters().openMenu(player);
+                    Main.getMenuManager().getCreatePremiumCharacters().openMenu(player);
                 } else if (!player.getMetadata("slotid").isEmpty()) {
                     Map<Integer, Integer> slotids = (Map<Integer, Integer>) player.getMetadata("slotid").get(0).value();
                     for (int slot : slotids.keySet()) {
                         if (event.getSlot() == slot) {
-                            Main.playerInfoManager.loginPlayer(player, slotids.get(slot));
+                            Main.getPlayerInfoManager().loginPlayer(player, slotids.get(slot));
                             event.setCancelled(true);
                             return;
                         }
@@ -55,8 +56,8 @@ public class AccountSelectorEvent implements Listener {
             event.setCancelled(true);
             return;
         } else if (event.getInventory().getName().equals(ChatColor.translateAlternateColorCodes('&', accountSelectorConfig.getString("freecharactersmenu.menuname")))) {
-            if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', ((Archer) Main.configManager.getClasses().getConfig().get("archer")).getProfileItem().getItem().getItemMeta().getDisplayName()))) {
-                Main.playerInfoManager.createAccount(player, (Archer) Main.configManager.getClasses().getConfig().get("archer"));
+            if (event.getCurrentItem().getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', ((Archer) Main.getConfigManager().getClasses().getConfig().get("archer")).getProfileItem().getItem().getItemMeta().getDisplayName()))) {
+                Main.getPlayerInfoManager().createAccount(player, (Archer) Main.getConfigManager().getClasses().getConfig().get("archer"));
                 player.closeInventory();
             }
             event.setCancelled(true);

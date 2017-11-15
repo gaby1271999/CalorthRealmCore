@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.menu.accounselector;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.menu.Item;
 import me.trolking1.calorthrealmcore.menu.Menu;
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ import org.bukkit.inventory.Inventory;
  */
 public class CreatePremiumCharacters implements Menu {
 
-    private FileConfiguration accountSelectorConfig = Main.configManager.getAccountSelector().getConfig();
+    private FileConfiguration accountSelectorConfig = Main.getConfigManager().getAccountSelector().getConfig();
     private Inventory inv;
 
     public CreatePremiumCharacters() {

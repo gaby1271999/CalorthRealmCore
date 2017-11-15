@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.events;
 
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +15,7 @@ public class BlockBreak implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
 
-        event.setCancelled(Main.guildUtils.onBlockChange(player, event.getBlock().getLocation()));
+        event.setCancelled(Main.getGuildUtils().onBlockChange(player, event.getBlock().getLocation()));
         return;
     }
 }

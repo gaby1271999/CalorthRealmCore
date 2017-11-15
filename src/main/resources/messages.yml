@@ -1,11 +1,14 @@
 prefix: '&5&l[&6CRC&5&l]  &a&l>> '
 ability:
-  activated: '&c&l%ability% has been activated'
+  activated: '&a&l%ability% has been activated'
+  hunger: '&c&lYou need more hunger to activate the %ability% ability!'
 admin:
   info:
   - '&5&lOo&6----------&5&loOo&6----------&5&loO'
   - ''
   - '&c/admin setspawn'
+  - '&c/admin settutorialspawn'
+  - '&c/admin setmobregion'
   - ''
   - '&5&lOo&6----------&5&loOo&6----------&5&loO'
   setspawn:
@@ -14,6 +17,29 @@ admin:
   settutorialspawn:
     succes: '&a&lThe tutorial spawn has been set successfully!'
     commanderror: '&4&l/admin settutorialspawn'
+  mobregion:
+    info:
+    - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+    - ''
+    - '&c/admin setmobregion <mobtypeid> <maxmobs>'
+    - '&c/admin setmobregion delete <id>'
+    - '&c/admin setmobregion addspawn <id>'
+    - '&c/admin setmobregion removespawn <id>'
+    - ''
+    - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+    wrongid: '&4&lThe given id is not a number.'
+    delete:
+      succes: '&a&lThe mob region has been deleted.'
+    addspawn:
+      succes: '&a&lYou added a new spawn location to the mob region.'
+    removespawn:
+      succes: '&a&lYou removed a spawn location from the mob region.'
+      spawndoesnotexists: '&c&lYour location is not a mob spawn location.'
+    create:
+      succes: '&a&lYou created a new region with the id: %id%.'
+      wrongmobid: '&4&lThe given mobid does not exists.'
+    wrongnumber: '&4&lThe given number is not a number.'
+    idnotexisting: '&4&lThe given id does not exists'
 clan:
   info:
   - '&5&lOo&6----------&5&loOo&6----------&5&loO'

@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.commands.admin.general;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.CommandInterface;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,12 +16,12 @@ public class SetTutorialSpawn implements CommandInterface {
         Player player = (Player) sender;
 
         if (args.length == 1) {
-            Main.configManager.getConfig().getConfig().set("tutorialspawn", player.getLocation());
-            Main.configManager.getConfig().saveConfig();
-            Main.messageManager.sendMessageFromConfig(player, "admin.settutorialspawn.succes");
+            Main.getConfigManager().getConfig().getConfig().set("tutorialspawn", player.getLocation());
+            Main.getConfigManager().getConfig().saveConfig();
+            Main.getMessageManager().sendMessageFromConfig(player, "admin.settutorialspawn.succes");
             return true;
         } else {
-            Main.messageManager.sendMessage(player, "admin.settutorialspawn.commanderror");
+            Main.getMessageManager().sendMessage(player, "admin.settutorialspawn.commanderror");
         }
 
         return false;

@@ -1,14 +1,21 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability.archer;
 
+import me.trolking1.calorthrealmcore.Main;
+import me.trolking1.calorthrealmcore.events.Bow;
 import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
 import me.trolking1.calorthrealmcore.playerinfo.ability.Ability;
 import me.trolking1.calorthrealmcore.playerinfo.ability.FireEffect;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
+import me.trolking1.calorthrealmcore.utils.SpawnParticle;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.Map;
@@ -35,8 +42,8 @@ public class Windstorm extends Ability implements ConfigurationSerializable {
     public Windstorm(Map<String, Object> map) {
         super(map);
 
-        this.hunger = Main.intToByte((int) map.get("hunger"));
-        this.duration =  Main.intToByte((int) map.get("duration"));
+        this.hunger = Main.getMain().intToByte((int) map.get("hunger"));
+        this.duration =  Main.getMain().intToByte((int) map.get("duration"));
         this.fireEffect = (FireEffect) map.get("fireeffect");
         this.effects = (List<PotionEffect>) map.get("effects");
     }
@@ -53,17 +60,53 @@ public class Windstorm extends Ability implements ConfigurationSerializable {
         return map;
     }
 
-    public void startAbility(PlayerData playerData) {
+    public int startAbility(Player player, PlayerData playerData) {
         Archer archer = (Archer) playerData.getPlayerClass();
-        archer.suptractHunger(hunger);
-        archer.increasePercentageToOptions(getAttackDamage(), getRangeDamage(), getDefence(), getAttackSpeed());
+        if (archer.getHunger()-hunger >= 0) {
+            archer.suptractHunger(hunger);
+            archer.increasePercentageToOptions(getAttackDamage(), getRangeDamage(), getDefence(), getAttackSpeed());
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
-            @Override
-            public void run() {
+            int task = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getMain(), () -> {
+                for (int i = 0; i < 7; i++) {
+                    double alpha = 0;
+                    if (player.getLocation().getDirection().getZ() == 1) {
+                        alpha = Math.PI/2;
+                    } else if (player.getLocation().getDirection().getZ() == -1) {
+                        alpha = (3*Math.PI)/2;
+                    } else {
+                        alpha = Math.atan(player.getLocation().getDirection().getZ()/player.getLocation().getDirection().getX());
+                    }
+
+                    double start = alpha - (Math.PI/12);
+
+                    double total = start + Math.toRadians(i*5);
+
+                    double hypotenuse = player.getLocation().getDirection().getX()/Math.abs(Math.cos(alpha));
+
+                    double x = hypotenuse*Math.cos(total);
+                    double y = player.getLocation().getDirection().getY();
+                    double z = hypotenuse*Math.sin(total);
+
+                    final Arrow arrow = player.launchProjectile(Arrow.class, new Vector(x, y, z).multiply(2));
+
+                    SpawnParticle.spawnParticle(player, Particle.CLOUD, arrow.getLocation().getX(), arrow.getLocation().getX(),  arrow.getLocation().getX(), 1);
+
+                    int arrowtask = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.getMain(), () -> {
+                        SpawnParticle.spawnParticle(player, Particle.CLOUD, arrow.getLocation().getX(), arrow.getLocation().getX(),  arrow.getLocation().getX(), 1);
+                    },0, 5);
+
+                    //Bow.windstormArrowsIds.put(arrow.getEntityId(), arrowtask);
+                }
+            }, 0, 10);
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getMain(), () -> {
                 archer.setupClassOptions(playerData);
-            }
-        }, 20*duration);
+                Bukkit.getScheduler().cancelTask(task);
+            }, 20 * duration);
+            return 1;
+        } else {
+            return 2;
+        }
     }
 
     public void setPlayerHitEffect(Player player) {

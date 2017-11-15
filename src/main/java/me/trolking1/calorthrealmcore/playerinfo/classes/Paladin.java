@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public class Paladin extends PlayerClass implements ConfigurationSerializable {
 
-    public Paladin(int damagePerLevel, int rangePerLevel, int defencePerLevel, int attackSpeedPerLevel, boolean premium, Item profileItem, Item mainItem, List<Item> items, List<String> abilitys) {
-        super(damagePerLevel, rangePerLevel, defencePerLevel, attackSpeedPerLevel, premium, profileItem, mainItem, items, null);
+    public Paladin(int damagePerLevel, int rangePerLevel, int defencePerLevel, int attackSpeedPerLevel, boolean premium, Item profileItem, int beginHealth, Item mainItem, List<Item> items, List<String> abilitys) {
+        super(damagePerLevel, rangePerLevel, defencePerLevel, attackSpeedPerLevel, premium, profileItem, beginHealth, mainItem, items, null);
     }
 
     public Paladin(Map<String, Object> map) {

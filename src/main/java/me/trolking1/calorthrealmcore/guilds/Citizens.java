@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.guilds;
 
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -83,12 +84,12 @@ public class Citizens {
     }
 
     public boolean addCitizen(String guildName, Player citizen) {
-        return Main.database.addCitizen(guildName, citizen, 4);
+        return Main.getDatabase().addCitizen(guildName, citizen, 4);
     }
 
     public boolean removeCitizen(String guildName, Player citizen) {
         if (getRank(citizen) != 0 && getRank(citizen) != 1) {
-            return Main.database.removeCitizen(guildName, citizen, getRank(citizen));
+            return Main.getDatabase().removeCitizen(guildName, citizen, getRank(citizen));
         } else {
             return false;
         }

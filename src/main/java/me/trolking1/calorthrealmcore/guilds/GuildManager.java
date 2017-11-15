@@ -1,6 +1,7 @@
 package me.trolking1.calorthrealmcore.guilds;
 
 import me.trolking1.calorthrealmcore.Config;
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -27,8 +28,8 @@ public class GuildManager {
     private List<Guild> guilds = new ArrayList<>();
 
     public void onStartUp() {
-        if (Main.configManager.getGuilds() != null) {
-            for (Config guildFile : Main.configManager.getGuilds()) {
+        if (Main.getConfigManager().getGuilds() != null) {
+            for (Config guildFile : Main.getConfigManager().getGuilds()) {
                 guilds.add((Guild) guildFile.getConfig().get("guild"));
             }
         }
@@ -111,8 +112,8 @@ public class GuildManager {
     }
 
     public boolean freeSpaceArroundChunk(Location location, boolean mainChunk) {
-        int minimalchunksize = Main.configManager.getGuild().getConfig().getInt("minimalchunkspace")
-                + (mainChunk ? Main.configManager.getGuild().getConfig().getInt("minimalmargine") : 0);
+        int minimalchunksize = Main.getConfigManager().getGuild().getConfig().getInt("minimalchunkspace")
+                + (mainChunk ? Main.getConfigManager().getGuild().getConfig().getInt("minimalmargine") : 0);
 
         List<Chunk> minimalChunks = new ArrayList<>();
         int minX = location.getBlockX() - (minimalchunksize*16);
@@ -165,7 +166,7 @@ public class GuildManager {
     private HashMap<String, BossBar> oldBossBar = new HashMap<>();
 
     public void sendPlayerBoss(Player player) {
-        if (Main.configManager.getGuild().getConfig().getBoolean("bossbar.enable")) {
+        if (Main.getConfigManager().getGuild().getConfig().getBoolean("bossbar.enable")) {
             if (oldBossBar.get(player.getName()) != null) {
                 oldBossBar.get(player.getName()).removePlayer(player);
             }
@@ -174,14 +175,14 @@ public class GuildManager {
 
             BossBar bossBar;
             if (state.equals("wilderness")) {
-                bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', Main.configManager.getGuild().getConfig().getString("bossbar.inguildmessage").replace("%state%", state)),
-                        BarColor.valueOf(Main.configManager.getGuild().getConfig().getString("bossbar.barcolor")), BarStyle.valueOf(Main.configManager.getGuild().getConfig().getString("bossbar.barstyle")));
+                bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', Main.getConfigManager().getGuild().getConfig().getString("bossbar.inguildmessage").replace("%state%", state)),
+                        BarColor.valueOf(Main.getConfigManager().getGuild().getConfig().getString("bossbar.barcolor")), BarStyle.valueOf(Main.getConfigManager().getGuild().getConfig().getString("bossbar.barstyle")));
             } else {
-                bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', Main.configManager.getGuild().getConfig().getString("bossbar.wildernessmessage").replace("%state%", state)),
-                        BarColor.valueOf(Main.configManager.getGuild().getConfig().getString("bossbar.barcolor")), BarStyle.valueOf(Main.configManager.getGuild().getConfig().getString("bossbar.barstyle")));
+                bossBar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', Main.getConfigManager().getGuild().getConfig().getString("bossbar.wildernessmessage").replace("%state%", state)),
+                        BarColor.valueOf(Main.getConfigManager().getGuild().getConfig().getString("bossbar.barcolor")), BarStyle.valueOf(Main.getConfigManager().getGuild().getConfig().getString("bossbar.barstyle")));
 
             }
-            for (String barFlag : Main.configManager.getGuild().getConfig().getStringList("bossbar.barflag")) {
+            for (String barFlag : Main.getConfigManager().getGuild().getConfig().getStringList("bossbar.barflag")) {
                 bossBar.addFlag(BarFlag.valueOf(barFlag));
             }
             bossBar.setProgress(1);
@@ -193,7 +194,7 @@ public class GuildManager {
     private List<String> createScoreBoardMap(Player player) {
         List<String> map = new ArrayList<>();
 
-        for (String world : Main.configManager.getGuild().getConfig().getStringList("guildworld")) {
+        for (String world : Main.getConfigManager().getGuild().getConfig().getStringList("guildworld")) {
             if (!player.getWorld().getName().equals(world)) {
                 return null;
             }
@@ -209,11 +210,11 @@ public class GuildManager {
             for (int x = minX; x <= maxX; x+=16) {
                 Chunk chunk = new Location(player.getWorld(), x, 1, z).getChunk();
                     if (chunk == player.getLocation().getChunk()) {
-                        line += ChatColor.translateAlternateColorCodes('&', Main.configManager.getGuild().getConfig().getString("scoreboard.map.characters.playerloc"));
+                        line += ChatColor.translateAlternateColorCodes('&', Main.getConfigManager().getGuild().getConfig().getString("scoreboard.map.characters.playerloc"));
                     } else if (chunkInformation(chunk).equals("wilderness")) {
-                        line += ChatColor.translateAlternateColorCodes('&', Main.configManager.getGuild().getConfig().getString("scoreboard.map.characters.wilderness"));
+                        line += ChatColor.translateAlternateColorCodes('&', Main.getConfigManager().getGuild().getConfig().getString("scoreboard.map.characters.wilderness"));
                     } else {
-                        line += ChatColor.translateAlternateColorCodes('&', Main.configManager.getGuild().getConfig().getString("scoreboard.map.characters.guild"));
+                        line += ChatColor.translateAlternateColorCodes('&', Main.getConfigManager().getGuild().getConfig().getString("scoreboard.map.characters.guild"));
                     }
             }
 
@@ -224,16 +225,16 @@ public class GuildManager {
     }
 
     public void sendPlayerScoreBoard(Player player) {
-        if (Main.configManager.getGuild().getConfig().getBoolean("scoreboard.enable")) {
+        if (Main.getConfigManager().getGuild().getConfig().getBoolean("scoreboard.enable")) {
             Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
             Objective objective = scoreboard.registerNewObjective("guild", "dummy");
             objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', Main.configManager.getGuild().getConfig().getString("scoreboard.displayname")));
+            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', Main.getConfigManager().getGuild().getConfig().getString("scoreboard.displayname")));
 
-            List<String> lines = Main.configManager.getGuild().getConfig().getStringList("scoreboard.lines");
+            List<String> lines = Main.getConfigManager().getGuild().getConfig().getStringList("scoreboard.lines");
             int counter = lines.size();
-            if (Main.configManager.getGuild().getConfig().getBoolean("scoreboard.map.enable")) {
+            if (Main.getConfigManager().getGuild().getConfig().getBoolean("scoreboard.map.enable")) {
                 counter += 5;
             }
             for (String line : lines) {
@@ -242,7 +243,7 @@ public class GuildManager {
                 counter--;
             }
 
-            if (Main.configManager.getGuild().getConfig().getBoolean("scoreboard.map.enable")) {
+            if (Main.getConfigManager().getGuild().getConfig().getBoolean("scoreboard.map.enable")) {
                 List<String> mapLines = createScoreBoardMap(player);
                 for (String mapLine : mapLines) {
                     Score score = objective.getScore(mapLine);
@@ -256,11 +257,11 @@ public class GuildManager {
     }
 
     public void refreshScoreBoard() {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getMain(), new Runnable() {
             @Override
             public void run() {
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    for (String world : Main.configManager.getGuild().getConfig().getStringList("guildworld")) {
+                    for (String world : Main.getConfigManager().getGuild().getConfig().getStringList("guildworld")) {
                         if (player.getWorld().getName().equals(world)) {
                             sendPlayerScoreBoard(player);
                             continue;
@@ -270,7 +271,7 @@ public class GuildManager {
                     player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
                 }
             }
-        }, 20*Main.configManager.getGuild().getConfig().getInt("scoreboard.refresh"));
+        }, 20*Main.getConfigManager().getGuild().getConfig().getInt("scoreboard.refresh"));
     }
 
     public List<Guild> getGuilds() {

@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability.archer;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.playerinfo.ability.Ability;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
@@ -28,8 +29,8 @@ public class DragonOrb extends Ability implements ConfigurationSerializable {
     public DragonOrb(Map<String, Object> map) {
         super(map);
 
-        this.hunger = Main.intToByte((int) map.get("hunger"));
-        this.duration = Main.intToByte((int) map.get("duration"));
+        this.hunger = Main.getMain().intToByte((int) map.get("hunger"));
+        this.duration = Main.getMain().intToByte((int) map.get("duration"));
         this.effects = (List<PotionEffect>) map.get("effects");
     }
 

@@ -1,5 +1,6 @@
 package me.trolking1.calorthrealmcore.events;
 
+import me.trolking1.calorthrealmcore.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +15,9 @@ public class PlayerMove implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
 
-        for (String world : Main.configManager.getGuild().getConfig().getStringList("guildworld")) {
+        for (String world : Main.getConfigManager().getGuild().getConfig().getStringList("guildworld")) {
             if (player.getWorld().getName().equals(world)) {
-                Main.guildManager.sendPlayerBoss(player);
+                Main.getGuildManager().sendPlayerBoss(player);
             }
         }
     }

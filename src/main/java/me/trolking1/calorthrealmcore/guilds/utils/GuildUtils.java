@@ -1,6 +1,7 @@
 package me.trolking1.calorthrealmcore.guilds.utils;
 
 import me.trolking1.calorthrealmcore.Config;
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.guilds.Guild;
 import me.trolking1.calorthrealmcore.guilds.Plot;
 import org.bukkit.Bukkit;
@@ -16,18 +17,18 @@ import java.util.Map;
  */
 public class GuildUtils {
 
-    private FileConfiguration guildConfig = Main.configManager.getGuild().getConfig();
+    private FileConfiguration guildConfig = Main.getConfigManager().getGuild().getConfig();
 
     public int createGuild(Player player, String guildName) {
-        if (!Main.guildManager.isInOtherGuild(player)) {
-            if (Main.econ.getBalance(player) >= Main.configManager.getConfig().getConfig().getInt("startguildmoney")) {
-                if (Main.guildManager.guildNameExists(guildName)) {
-                    if (Main.guildManager.freeSpaceArroundChunk(player.getLocation(), true)) {
+        if (!Main.getGuildManager().isInOtherGuild(player)) {
+            if (Main.getEcon().getBalance(player) >= Main.getConfigManager().getConfig().getConfig().getInt("startguildmoney")) {
+                if (Main.getGuildManager().guildNameExists(guildName)) {
+                    if (Main.getGuildManager().freeSpaceArroundChunk(player.getLocation(), true)) {
                         Guild guild = new Guild(guildName, player.getLocation(), player.getLocation(), null, null);
-                        Config config = new Config(Main.main, "/guilds/" + guildName, false);
+                        Config config = new Config(Main.getMain(), "/guilds/" + guildName, false);
                         config.getConfig().set("guild", guild);
                         config.saveConfig();
-                        Main.guildManager.getGuilds().add(guild);
+                        Main.getGuildManager().getGuilds().add(guild);
                         return 1;
                     } else {
                         return 2;
@@ -44,12 +45,12 @@ public class GuildUtils {
     }
 
     public int removeGuild(Player player) {
-        Guild guild = Main.guildManager.getGuildOfPlayer(player);
+        Guild guild = Main.getGuildManager().getGuildOfPlayer(player);
 
         if (guild != null) {
-            Config config = Main.configManager.getGuildsFile(guild.getName());
+            Config config = Main.getConfigManager().getGuildsFile(guild.getName());
             config.getFile().delete();
-            Main.guildManager.getGuilds().remove(guild);
+            Main.getConfigManager().getGuilds().remove(guild);
             return 1;
         } else {
             return 2;
@@ -59,22 +60,22 @@ public class GuildUtils {
     public Map<String, String> request = new HashMap<>();
     public Map<String, String> invitor = new HashMap<>();
     public int addCitizenRequest(final Player player, final Player citizen) {
-        Guild guild = Main.guildManager.getGuildOfPlayer(player);
+        Guild guild = Main.getGuildManager().getGuildOfPlayer(player);
 
         if (guild != null) {
             if (!guild.getCitizens().containsPlayer(citizen)) {
-                if (Main.guildManager.getGuildOfPlayer(citizen) == null) {
+                if (Main.getGuildManager().getGuildOfPlayer(citizen) == null) {
                     request.put(citizen.getName(), guild.getName());
                     invitor.put(citizen.getName(), player.getName());
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getMain(), new Runnable() {
                         @Override
                         public void run() {
-                            Main.messageManager.sendMessageFromConfig(citizen, "guild.addcitizen.requestovertime");
-                            Main.messageManager.sendMessage(player, Main.messageManager.getMessageFromConfig("guild.addcitizen.ignorerequest").replace("%player%", citizen.getName()));
+                            Main.getMessageManager().sendMessageFromConfig(citizen, "guild.addcitizen.requestovertime");
+                            Main.getMessageManager().sendMessage(player, Main.getMessageManager().getMessageFromConfig("guild.addcitizen.ignorerequest").replace("%player%", citizen.getName()));
                             request.remove(citizen.getName());
                             invitor.remove(citizen.getName());
                         }
-                    }, 20*Main.configManager.getMessages().getConfig().getInt("guild.addcitizen.overtime"));
+                    }, 20*Main.getConfigManager().getMessages().getConfig().getInt("guild.addcitizen.overtime"));
                     return 1;
                 } else {
                     return 2;
@@ -90,7 +91,7 @@ public class GuildUtils {
     public void addCitizen(Player citizen, boolean accepted) {
         if (accepted) {
             String guildName = request.get(citizen.getName());
-            Guild guild = Main.guildManager.getGuild(guildName);
+            Guild guild = Main.getGuildManager().getGuild(guildName);
             guild.getCitizens().addCitizen(guildName, citizen);
             request.remove(citizen.getName());
             invitor.remove(citizen.getName());
@@ -101,7 +102,7 @@ public class GuildUtils {
     }
 
     public int remnoveCitizen(Player player, Player citizen) {
-        Guild guild = Main.guildManager.getGuildOfPlayer(player);
+        Guild guild = Main.getGuildManager().getGuildOfPlayer(player);
 
         if (guild != null) {
             if (guild.getCitizens().containsPlayer(citizen)) {
@@ -121,13 +122,13 @@ public class GuildUtils {
     public boolean onBlockChange(Player player, Location location) {
         for (String world : guildConfig.getStringList("guildworld")) {
             if (player.getWorld().getName().equals(world)) {
-                Guild guild = Main.guildManager.getGuild(location);
+                Guild guild = Main.getGuildManager().getGuild(location);
                 if (guild == null) {
                     if (!guildConfig.getBoolean("worldsettings.wilderness.blockbreak")) {
                         return true;
                     }
                 } else {
-                    Plot plot = Main.guildManager.getPlot(location);
+                    Plot plot = Main.getGuildManager().getPlot(location);
 
                     if (guild.getCitizens().getLeader().getName().equals(player.getName())) {
                         if (plot != null) {

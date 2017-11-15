@@ -1,8 +1,10 @@
 package me.trolking1.calorthrealmcore.commands;
 
+import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.admin.AdminMainCommand;
 import me.trolking1.calorthrealmcore.commands.admin.general.SetSpawn;
 import me.trolking1.calorthrealmcore.commands.admin.general.SetTutorialSpawn;
+import me.trolking1.calorthrealmcore.commands.admin.mobspawnregions.MobRegionCommand;
 import me.trolking1.calorthrealmcore.commands.clan.ClanMainCommand;
 import me.trolking1.calorthrealmcore.commands.guild.GuildMainCommand;
 
@@ -23,16 +25,17 @@ public class CommandManager {
 
     private void setupGuildCommands() {
         guild.addCommand("guild", new GuildMainCommand());
-        Main.main.getCommand("guild").setExecutor(guild);
+        Main.getMain().getCommand("guild").setExecutor(guild);
 
         clan.addCommand("clan", new ClanMainCommand());
-        Main.main.getCommand("clan").setExecutor(clan);
+        Main.getMain().getCommand("clan").setExecutor(clan);
 
 
         admin.addCommand("admin", new AdminMainCommand());
         admin.addCommand("setspawn", new SetSpawn());
         admin.addCommand("settutorialspawn", new SetTutorialSpawn());
-        Main.main.getCommand("admin").setExecutor(admin);
+        admin.addCommand("setmobregion", new MobRegionCommand());
+        Main.getMain().getCommand("admin").setExecutor(admin);
     }
 
 }
