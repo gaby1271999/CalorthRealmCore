@@ -1,15 +1,12 @@
 package me.trolking1.calorthrealmcore.playerinfo.ability.archer;
 
 import me.trolking1.calorthrealmcore.Main;
-import me.trolking1.calorthrealmcore.events.Bow;
+import me.trolking1.calorthrealmcore.events.BowEvents;
 import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
 import me.trolking1.calorthrealmcore.playerinfo.ability.Ability;
 import me.trolking1.calorthrealmcore.playerinfo.ability.FireEffect;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
-import me.trolking1.calorthrealmcore.utils.SpawnParticle;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Arrow;
@@ -87,15 +84,9 @@ public class Windstorm extends Ability implements ConfigurationSerializable {
                     double y = player.getLocation().getDirection().getY();
                     double z = hypotenuse*Math.sin(total);
 
-                    final Arrow arrow = player.launchProjectile(Arrow.class, new Vector(x, y, z).multiply(2));
+                    Arrow arrow = player.launchProjectile(Arrow.class, new Vector(x, y, z).multiply(2));
 
-                    SpawnParticle.spawnParticle(player, Particle.CLOUD, arrow.getLocation().getX(), arrow.getLocation().getX(),  arrow.getLocation().getX(), 1);
-
-                    int arrowtask = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.getMain(), () -> {
-                        SpawnParticle.spawnParticle(player, Particle.CLOUD, arrow.getLocation().getX(), arrow.getLocation().getX(),  arrow.getLocation().getX(), 1);
-                    },0, 5);
-
-                    //Bow.windstormArrowsIds.put(arrow.getEntityId(), arrowtask);
+                    BowEvents.windstormArrowsIds.put(arrow.getEntityId(), false);
                 }
             }, 0, 10);
 

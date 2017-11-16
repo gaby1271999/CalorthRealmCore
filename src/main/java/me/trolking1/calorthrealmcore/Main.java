@@ -100,7 +100,7 @@ public class Main extends JavaPlugin {
 		scoreBoardUtil = new ScoreBoardUtil();
 		commandManager = new CommandManager();
 
-		registerEvents(new PlayerJoin(), new AccountSelectorEvent(), new PlayerInteract(), new PlayerQuit(), new EntityMove());
+		registerEvents(new BowEvents(), new PlayerJoin(), new AccountSelectorEvent(), new PlayerInteract(), new PlayerQuit(), new EntityMove());
 
 		setupPermissions();
 
