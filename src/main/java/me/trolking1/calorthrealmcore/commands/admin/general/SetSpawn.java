@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 6/28/2017.
  */
+/*
 public class SetSpawn implements CommandInterface {
 
     @Override
@@ -26,4 +27,4 @@ public class SetSpawn implements CommandInterface {
 
         return false;
     }
-}
+}*/

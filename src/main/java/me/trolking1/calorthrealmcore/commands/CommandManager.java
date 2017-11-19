@@ -1,41 +1,75 @@
 package me.trolking1.calorthrealmcore.commands;
 
 import me.trolking1.calorthrealmcore.Main;
-import me.trolking1.calorthrealmcore.commands.admin.AdminMainCommand;
-import me.trolking1.calorthrealmcore.commands.admin.general.SetSpawn;
-import me.trolking1.calorthrealmcore.commands.admin.general.SetTutorialSpawn;
-import me.trolking1.calorthrealmcore.commands.admin.mobspawnregions.MobRegionCommand;
-import me.trolking1.calorthrealmcore.commands.clan.ClanMainCommand;
-import me.trolking1.calorthrealmcore.commands.guild.GuildMainCommand;
+import me.trolking1.calorthrealmcore.commands.guild.GuildInfoCommand;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gabriel on 4/3/2017.
  */
-public class CommandManager {
+public class CommandManager implements CommandExecutor {
 
-    private NewCommand guild, clan, admin;
+    private List<CommandInterface> commands = new ArrayList<>();
 
     public CommandManager() {
-        guild = new NewCommand("guild");
-        clan = new NewCommand("clan");
-        admin = new NewCommand("admin");
+        Main.getMain().getCommand("guild").setExecutor(this);
+        Main.getMain().getCommand("g").setExecutor(this);
+        Main.getMain().getCommand("admin").setExecutor(this);
+        Main.getMain().getCommand("a").setExecutor(this);
+        Main.getMain().getCommand("clan").setExecutor(this);
+        Main.getMain().getCommand("c").setExecutor(this);
 
-        setupGuildCommands();
+        commands.add(new GuildInfoCommand());
     }
 
-    private void setupGuildCommands() {
-        guild.addCommand("guild", new GuildMainCommand());
-        Main.getMain().getCommand("guild").setExecutor(guild);
+    public CommandInterface getCommand(String name) {
+        return commands.stream().filter(commandInterface -> {
+            for (String listName : commandInterface.getNames()) {
+                if (name.equals(listName)) {
+                    return true;
+                }
+            }
 
-        clan.addCommand("clan", new ClanMainCommand());
-        Main.getMain().getCommand("clan").setExecutor(clan);
-
-
-        admin.addCommand("admin", new AdminMainCommand());
-        admin.addCommand("setspawn", new SetSpawn());
-        admin.addCommand("settutorialspawn", new SetTutorialSpawn());
-        admin.addCommand("setmobregion", new MobRegionCommand());
-        Main.getMain().getCommand("admin").setExecutor(admin);
+            return false;
+        }).findFirst().orElse(null);
     }
 
+    @Override
+    public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+        if (commandSender instanceof Player) {
+            Player player = (Player) commandSender;
+            CommandInterface commandInterface = getCommand(label);
+
+            if (commandInterface != null) {
+                if (commandInterface.checkPerms(player) && commandInterface.checkArgs(args)) {
+                    if (!commandInterface.excecute(player, args)) {
+                        commandInterface.sendUsage(player);
+                        return true;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    sendInfo(player);
+                    return true;
+                }
+            } else {
+                sendInfo(player);
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    private void sendInfo(Player player) {
+        commands.forEach((ci) -> {
+            ci.sendCommandInfo(player);
+        });
+    }
 }

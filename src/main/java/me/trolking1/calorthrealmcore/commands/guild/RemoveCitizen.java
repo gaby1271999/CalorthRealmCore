@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 4/27/2017.
  */
+/*
 public class RemoveCitizen implements CommandInterface {
 
     @Override
@@ -20,4 +21,4 @@ public class RemoveCitizen implements CommandInterface {
 
         return false;
     }
-}
+}*/

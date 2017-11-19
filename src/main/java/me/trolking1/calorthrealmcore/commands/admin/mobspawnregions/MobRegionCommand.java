@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.io.InvalidClassException;
 
+/*
 public class MobRegionCommand implements CommandInterface {
 
     @Override
@@ -101,4 +102,4 @@ public class MobRegionCommand implements CommandInterface {
             return 0;
         }
     }
-}
+}*/

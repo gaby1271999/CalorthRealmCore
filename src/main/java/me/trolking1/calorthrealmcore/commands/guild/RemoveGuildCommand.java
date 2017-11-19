@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 3/29/2017.
  */
+/*
 public class RemoveGuildCommand implements CommandInterface {
 
     @Override
@@ -32,4 +33,4 @@ public class RemoveGuildCommand implements CommandInterface {
 
         return false;
     }
-}
+}*/

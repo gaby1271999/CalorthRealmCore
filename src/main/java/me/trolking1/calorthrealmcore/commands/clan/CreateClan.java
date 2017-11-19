@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 6/5/2017.
  */
+/*
 public class CreateClan implements CommandInterface {
 
     @Override
@@ -38,4 +39,4 @@ public class CreateClan implements CommandInterface {
 
         return false;
     }
-}
+}*/

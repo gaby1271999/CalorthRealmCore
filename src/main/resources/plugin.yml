@@ -6,5 +6,8 @@ depend: [LuckPerms]
 
 commands:
   admin:
+  a:
   clan:
+  c:
   guild:
+  g:

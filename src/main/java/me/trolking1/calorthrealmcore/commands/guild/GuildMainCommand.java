@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 3/29/2017.
  */
+
+/*
 public class GuildMainCommand implements CommandInterface {
 
 
@@ -22,4 +24,4 @@ public class GuildMainCommand implements CommandInterface {
 
         return false;
     }
-}
+}*/

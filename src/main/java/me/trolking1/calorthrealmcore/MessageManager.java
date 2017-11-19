@@ -24,6 +24,10 @@ public class MessageManager {
         player.sendMessage(toColor(prefix + message));
     }
 
+    public void sendEmptyMessage(Player player, String message) {
+        player.sendMessage(toColor(message));
+    }
+
     public String getMessageFromConfig(String path) {
         return messageconfig.getString(path);
     }

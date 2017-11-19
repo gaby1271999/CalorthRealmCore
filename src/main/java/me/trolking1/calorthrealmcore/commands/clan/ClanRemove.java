@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 6/5/2017.
  */
+
+/*
 public class ClanRemove implements CommandInterface {
 
     @Override
@@ -35,4 +37,4 @@ public class ClanRemove implements CommandInterface {
 
         return false;
     }
-}
+}*/

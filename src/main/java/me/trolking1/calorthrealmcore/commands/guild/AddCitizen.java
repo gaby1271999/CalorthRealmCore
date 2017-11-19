@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 4/26/2017.
  */
+
+/*
 public class AddCitizen implements CommandInterface {
 
     @Override
@@ -48,4 +50,4 @@ public class AddCitizen implements CommandInterface {
 
         return false;
     }
-}
+}*/

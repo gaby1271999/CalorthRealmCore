@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 6/5/2017.
  */
+/*
 public class CreateCommand implements CommandInterface {
 
     @Override
@@ -22,4 +23,4 @@ public class CreateCommand implements CommandInterface {
 
         return false;
     }
-}
+}*/

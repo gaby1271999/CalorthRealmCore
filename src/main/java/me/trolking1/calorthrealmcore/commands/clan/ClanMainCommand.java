@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 5/2/2017.
  */
+/*
 public class ClanMainCommand implements CommandInterface {
 
     @Override
@@ -20,4 +21,4 @@ public class ClanMainCommand implements CommandInterface {
 
         return false;
     }
-}
+}*/

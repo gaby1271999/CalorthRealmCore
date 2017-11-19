@@ -63,23 +63,8 @@ clan:
     noclan: '&c&lYou do not have a clan!'
     commanderror: '&4&l/clan remove'
 guild:
-  info:
-  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
-  - ''
-  - '&c/guild create'
-  - '&c/guild remove'
-  - '&c/guild promote'
-  - '&c/guild demote'
-  - '&c/guild plot'
-  - '&c/guild addcitizen'
-  - '&c/guild removecitizen'
-  - '&c/guild request'
-  - '&c/guild leave'
-  - '&c/guild info'
-  - '&c/guild creator'
-  - '&c/guild map'
-  - ''
-  - '&5&lOo&6----------&5&loOo&6----------&5&loO'
+  guildinfocommand:
+    description: '&6Opens a menu with the info of your guild.'
   create:
     success: '&a&lThe guild has been created.'
     nameexists: '&c&lThe name does already exists.'

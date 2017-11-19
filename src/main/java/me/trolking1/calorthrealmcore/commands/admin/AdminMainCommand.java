@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 6/4/2017.
  */
+/*
 public class AdminMainCommand implements CommandInterface {
 
     @Override
@@ -23,4 +24,4 @@ public class AdminMainCommand implements CommandInterface {
 
         return false;
     }
-}
+}*/

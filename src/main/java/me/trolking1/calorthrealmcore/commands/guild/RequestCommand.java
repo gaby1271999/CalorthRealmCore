@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 4/30/2017.
  */
+
+/*
 public class RequestCommand implements CommandInterface {
 
     @Override
@@ -40,4 +42,4 @@ public class RequestCommand implements CommandInterface {
         Main.getMessageManager().sendMessageFromConfig(player, "guild.request.commanderror");
         return false;
     }
-}
+}*/

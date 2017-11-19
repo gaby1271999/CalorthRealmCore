@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 /**
  * Created by Gabriel on 7/3/2017.
  */
+
+/*
 public class SetTutorialSpawn implements CommandInterface {
 
     @Override
@@ -26,4 +28,4 @@ public class SetTutorialSpawn implements CommandInterface {
 
         return false;
     }
-}
+}*/
