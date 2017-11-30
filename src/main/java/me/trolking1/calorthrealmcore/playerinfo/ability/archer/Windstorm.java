@@ -6,12 +6,15 @@ import me.trolking1.calorthrealmcore.playerinfo.PlayerData;
 import me.trolking1.calorthrealmcore.playerinfo.ability.Ability;
 import me.trolking1.calorthrealmcore.playerinfo.ability.FireEffect;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
+import me.trolking1.calorthrealmcore.utils.SpawnParticle;
+import net.minecraft.server.v1_12_R1.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.List;
@@ -84,9 +87,20 @@ public class Windstorm extends Ability implements ConfigurationSerializable {
                     double y = player.getLocation().getDirection().getY();
                     double z = hypotenuse*Math.sin(total);
 
-                    Arrow arrow = player.launchProjectile(Arrow.class, new Vector(x, y, z).multiply(2));
+                    Arrow arrow = player.launchProjectile(Arrow.class);
+                    arrow.setVelocity(new Vector(x, y, z).multiply(2));
 
-                    BowEvents.windstormArrowsIds.put(arrow.getEntityId(), false);
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            SpawnParticle.spawnParticle(EnumParticle.VILLAGER_HAPPY, arrow.getLocation().getX(), arrow.getLocation().getY(), arrow.getLocation().getZ(), 1);
+                            if (arrow.isOnGround() || (!arrow.isValid())) {
+                                arrow.remove();
+                                cancel();
+                            }
+                        }
+                    }.runTaskTimer(Main.getMain(), 1, 2);
+
                 }
             }, 0, 10);
 
