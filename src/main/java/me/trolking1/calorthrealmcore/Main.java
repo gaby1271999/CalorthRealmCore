@@ -7,12 +7,10 @@ import me.trolking1.calorthrealmcore.commands.CommandManager;
 import me.trolking1.calorthrealmcore.customitems.Bow;
 import me.trolking1.calorthrealmcore.customitems.Sword;
 import me.trolking1.calorthrealmcore.customitems.Wand;
-import me.trolking1.calorthrealmcore.custommobs.CustomMob;
-import me.trolking1.calorthrealmcore.custommobs.CustomMobManager;
-import me.trolking1.calorthrealmcore.custommobs.MobSpawn;
+import me.trolking1.calorthrealmcore.custommobs.CustomZombie;
+import me.trolking1.calorthrealmcore.custommobs.EntityManager;
 import me.trolking1.calorthrealmcore.database.Database;
 import me.trolking1.calorthrealmcore.events.*;
-import me.trolking1.calorthrealmcore.events.entitymove.EntityMoveManager;
 import me.trolking1.calorthrealmcore.guilds.GuildManager;
 import me.trolking1.calorthrealmcore.guilds.utils.GuildUtils;
 import me.trolking1.calorthrealmcore.menu.MenuManager;
@@ -23,13 +21,14 @@ import me.trolking1.calorthrealmcore.playerinfo.ability.archer.Windstorm;
 import me.trolking1.calorthrealmcore.playerinfo.classes.Archer;
 import me.trolking1.calorthrealmcore.utils.NMSUtil;
 import me.trolking1.calorthrealmcore.utils.ScoreBoardUtil;
+import net.citizensnpcs.nms.v1_11_R1.util.CustomEntityRegistry;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import net.minecraft.server.v1_12_R1.EntityZombie;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -56,8 +55,6 @@ public class Main extends JavaPlugin {
 		ConfigurationSerialization.registerClass(RainOfFire.class);
 		ConfigurationSerialization.registerClass(FireEffect.class);
 		ConfigurationSerialization.registerClass(Archer.class);
-		ConfigurationSerialization.registerClass(CustomMob.class);
-		ConfigurationSerialization.registerClass(MobSpawn.class);
 	}
 
 	private static Permission perms = null;
@@ -70,7 +67,6 @@ public class Main extends JavaPlugin {
 	private static MessageManager messageManager;
 	private static Database database;
 	private static GuildManager guildManager = new GuildManager();
-	private static CustomMobManager customMobManager;
 	private static GuildUtils guildUtils;
 	private static NMSUtil nmsUtil;
 	private static ScoreBoardUtil scoreBoardUtil;
@@ -92,15 +88,13 @@ public class Main extends JavaPlugin {
 		menuManager = new MenuManager();
 		guildManager.onStartUp();
 		playerInfoManager = new PlayerInfoManager();
-		customMobManager = new CustomMobManager();
-		customMobManager.setupMobSpawns();
 		clanManager = new ClanManager();
 		guildUtils = new GuildUtils();
 		nmsUtil = new NMSUtil();
 		scoreBoardUtil = new ScoreBoardUtil();
 		commandManager = new CommandManager();
 
-		registerEvents(new BowEvents(), new PlayerJoin(), new AccountSelectorEvent(), new PlayerInteract(), new PlayerQuit(), new EntityMove());
+		registerEvents(new BowEvents(), new PlayerJoin(), new AccountSelectorEvent(), new PlayerInteract(), new PlayerQuit());
 
 		setupPermissions();
 
@@ -108,8 +102,6 @@ public class Main extends JavaPlugin {
 		if (manager.isProvidedFor(LuckPermsApi.class)) {
 			final LuckPermsApi api = manager.getRegistration(LuckPermsApi.class).getProvider();
 		}
-
-		new EntityMoveManager();
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			Main.getPlayerInfoManager().setPlayerAccounts(player);
@@ -120,11 +112,11 @@ public class Main extends JavaPlugin {
 
 			getPlayerInfoManager().createAccountSelector(player);
 		}
+
+		EntityManager.registerEntity("zombie", 54, CustomZombie.class);
 	}
 
 	public void onDisable() {
-		customMobManager.shutDown();
-
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (!player.getMetadata("id").isEmpty()) {
 				Main.getDatabase().saveAccount(player);
@@ -265,10 +257,6 @@ public class Main extends JavaPlugin {
 
 	public static GuildManager getGuildManager() {
 		return guildManager;
-	}
-
-	public static CustomMobManager getCustomMobManager() {
-		return customMobManager;
 	}
 
 	public static GuildUtils getGuildUtils() {

@@ -6,10 +6,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
-
-/**
- * Created by Gabriel on 3/29/2017.
- */
 public class Config {
 
     private String name;

@@ -6,18 +6,27 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 3/29/2017.
- */
-/*
-public class CreateGuildCommand implements CommandInterface {
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class CreateGuildCommand extends CommandInterface {
+
+    public CreateGuildCommand() {
+        super(null, "guild.createguild.description", "guild", "g");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("createguild", 0);
+        args.put("cg", 0);
+        setArgs(args);
+        setUsage("guild", "createguild", "<player>");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 2) {
             int event = Main.getGuildUtils().createGuild(player, args[1]);
+
             switch (event) {
                 case 1:
                     Main.getMessageManager().sendMessageFromConfig(player, "guild.create.success");
@@ -35,10 +44,8 @@ public class CreateGuildCommand implements CommandInterface {
                     Main.getMessageManager().sendMessageFromConfig(player, "guild.create.inotherguild");
                     return true;
             }
-        } else {
-            Main.getMessageManager().sendMessageFromConfig(player, "guild.create.commanderror");
         }
 
         return false;
     }
-}*/
+}

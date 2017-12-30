@@ -6,17 +6,24 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 6/5/2017.
- */
+import java.util.HashMap;
+import java.util.Map;
 
-/*
-public class ClanRemove implements CommandInterface {
+
+public class RemoveClanCommand extends CommandInterface {
+
+    public RemoveClanCommand() {
+        super(null, "clan.removeclan.description", "clan", "c");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("removeclan", 0);
+        args.put("rc", 0);
+        setArgs(args);
+        setUsage("clan", "removeclan");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 1) {
             int state = Main.getClanManager().removeClan(player);
 
@@ -31,10 +38,8 @@ public class ClanRemove implements CommandInterface {
                     Main.getMessageManager().sendMessageFromConfig(player, "clan.remove.noclan");
                     return true;
             }
-        } else {
-            Main.getMessageManager().sendMessageFromConfig(player, "clan.remove.commanderror");
         }
 
         return false;
     }
-}*/
+}

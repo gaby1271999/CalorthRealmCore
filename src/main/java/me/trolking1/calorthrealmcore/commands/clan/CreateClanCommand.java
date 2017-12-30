@@ -6,16 +6,24 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 6/5/2017.
- */
-/*
-public class CreateClan implements CommandInterface {
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class CreateClanCommand extends CommandInterface {
+
+    public CreateClanCommand() {
+        super(null, "clan.createclan.description", "clan", "c");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("createclan", 0);
+        args.put("cc", 0);
+        setArgs(args);
+        setUsage("clan", "createclan", "<name>", "<clan tag>");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 2) {
             int state = Main.getClanManager().createClan(player, args[1], args[2]);
 
@@ -33,10 +41,8 @@ public class CreateClan implements CommandInterface {
                     Main.getMessageManager().sendMessageFromConfig(player, "clan.create.hasclan");
                     return true;
             }
-        } else {
-            Main.getMessageManager().sendMessageFromConfig(player, "clan.create.commanderror");
         }
 
         return false;
     }
-}*/
+}

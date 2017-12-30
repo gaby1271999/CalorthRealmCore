@@ -6,16 +6,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 3/29/2017.
- */
-/*
-public class RemoveGuildCommand implements CommandInterface {
+import java.util.HashMap;
+import java.util.Map;
+
+public class RemoveGuildCommand extends CommandInterface {
+
+    public RemoveGuildCommand() {
+        super(null, "guild.removeguild.description", "guild", "g");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("removeguild", 0);
+        args.put("rg", 0);
+        setArgs(args);
+        setUsage("guild", "removeguild");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 1) {
             int event = Main.getGuildUtils().removeGuild(player);
 
@@ -27,10 +34,8 @@ public class RemoveGuildCommand implements CommandInterface {
                     Main.getMessageManager().sendMessageFromConfig(player, "guild.remove.noguild");
                     return true;
             }
-        } else {
-            Main.getMessageManager().sendMessageFromConfig(player, "guild.remove.commanderror");
         }
 
         return false;
     }
-}*/
+}

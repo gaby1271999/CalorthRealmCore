@@ -7,17 +7,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 4/30/2017.
- */
+import java.util.HashMap;
+import java.util.Map;
 
-/*
-public class RequestCommand implements CommandInterface {
+public class RequestCommand extends CommandInterface {
+
+    public RequestCommand() {
+        super(null, "guild.request.description", "guild", "g");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("request", 0);
+        args.put("r", 0);
+        setArgs(args);
+        setUsage("guild", "request", "<player>");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 2) {
             if (args[1].equalsIgnoreCase("accept")) {
                 if (Main.getGuildUtils().request.get(player.getName()) != null) {
@@ -39,7 +45,6 @@ public class RequestCommand implements CommandInterface {
             return true;
         }
 
-        Main.getMessageManager().sendMessageFromConfig(player, "guild.request.commanderror");
         return false;
     }
-}*/
+}

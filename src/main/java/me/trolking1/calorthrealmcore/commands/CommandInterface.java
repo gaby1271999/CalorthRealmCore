@@ -31,6 +31,16 @@ public abstract class CommandInterface {
         return names;
     }
 
+    public boolean containsName(String name) {
+        for (int i = 0; i < getNames().length; i++) {
+            if (getNames()[i].toLowerCase().equals(name.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean checkPerms(Player player) {
         if (this.permission != null) {
             return player.hasPermission(this.permission);

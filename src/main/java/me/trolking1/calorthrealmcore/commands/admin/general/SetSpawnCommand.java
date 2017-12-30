@@ -6,25 +6,31 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 6/28/2017.
- */
-/*
-public class SetSpawn implements CommandInterface {
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class SetSpawnCommand extends CommandInterface {
+
+    public SetSpawnCommand() {
+        super(null, "admin.setspawn.description", "admin", "a");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("setspawn", 0);
+        args.put("ss", 0);
+        setArgs(args);
+        setUsage("admin", "setspawn");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 1) {
             Main.getConfigManager().getConfig().getConfig().set("spawn", player.getLocation());
             Main.getConfigManager().getConfig().saveConfig();
             Main.getMessageManager().sendMessageFromConfig(player, "admin.setspawn.succes");
             return true;
-        } else {
-            Main.getMessageManager().sendMessage(player, "admin.setspawn.commanderror");
         }
 
         return false;
     }
-}*/
+}

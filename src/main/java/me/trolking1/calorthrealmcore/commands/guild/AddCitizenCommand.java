@@ -1,29 +1,33 @@
 package me.trolking1.calorthrealmcore.commands.guild;
 
+
 import me.trolking1.calorthrealmcore.Main;
 import me.trolking1.calorthrealmcore.commands.CommandInterface;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 4/26/2017.
- */
+import java.util.HashMap;
+import java.util.Map;
 
-/*
-public class AddCitizen implements CommandInterface {
+public class AddCitizenCommand extends CommandInterface {
+
+    public AddCitizenCommand() {
+        super(null, "guild.addcitizen.description", "guild", "g");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("addcitizen", 0);
+        args.put("ac", 0);
+        setArgs(args);
+        setUsage("guild", "addcitizen", "<player>");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 2) {
             Player citizen = Bukkit.getPlayer(args[1]);
             if (citizen == null) {
                 Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.invalidplayer");
-                return false;
+                return true;
             }
 
             int event = Main.getGuildUtils().addCitizenRequest(player, citizen);
@@ -44,10 +48,9 @@ public class AddCitizen implements CommandInterface {
                     Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.noguild");
                     return true;
             }
-        } else {
-            Main.getMessageManager().sendMessageFromConfig(player, "guild.addcitizen.commanderror");
         }
 
         return false;
     }
-}*/
+
+}

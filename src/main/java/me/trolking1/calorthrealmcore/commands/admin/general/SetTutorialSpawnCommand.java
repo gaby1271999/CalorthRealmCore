@@ -6,26 +6,30 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * Created by Gabriel on 7/3/2017.
- */
+import java.util.HashMap;
+import java.util.Map;
 
-/*
-public class SetTutorialSpawn implements CommandInterface {
+public class SetTutorialSpawnCommand extends CommandInterface {
+
+    public SetTutorialSpawnCommand() {
+        super(null, "admin.settutorialspawn.description", "admin", "a");
+
+        Map<String, Integer> args = new HashMap<>();
+        args.put("settutorialspawn", 0);
+        args.put("sts", 0);
+        setArgs(args);
+        setUsage("admin", "settutorialspawn");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-
+    public boolean excecute(Player player, String[] args) {
         if (args.length == 1) {
             Main.getConfigManager().getConfig().getConfig().set("tutorialspawn", player.getLocation());
             Main.getConfigManager().getConfig().saveConfig();
             Main.getMessageManager().sendMessageFromConfig(player, "admin.settutorialspawn.succes");
             return true;
-        } else {
-            Main.getMessageManager().sendMessage(player, "admin.settutorialspawn.commanderror");
         }
 
         return false;
     }
-}*/
+}
